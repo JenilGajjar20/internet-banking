@@ -14,8 +14,11 @@
       <!-- Header List Items -->
       <ListItems />
 
-      <!-- Open Account Button -->
-      <ButtonDefault class="hidden lg:block" />
+      <ButtonSolidLink
+        to="register"
+        label="Create Account"
+        class="hidden lg:block"
+      />
     </div>
   </div>
 </template>

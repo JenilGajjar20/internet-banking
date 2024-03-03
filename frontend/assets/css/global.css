@@ -1,1 +1,18 @@
 /* Global CSS */
+@font-face{
+    font-family: "Lato";
+    src: local("Lato"), url("../fonts/Lato-Regular.ttf") format("truetype");
+}
+
+@font-face{
+    font-family: "Montserrat";
+    src: local("Montserrat"), url("../fonts/Montserrat-Regular.ttf") format("truetype");
+}
+
+.primary-fonts{
+    font-family: "Montserrat";
+}
+
+.secondary-fonts{
+    font-family: "Lato";
+}
