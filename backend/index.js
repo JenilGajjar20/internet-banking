@@ -18,7 +18,7 @@ const adminAuthRoute = require("./routes/admin-auth");
 app.use(express.json());
 
 // Define the port
-const port = 3000;
+const port = 3001;
 
 // app.use("/items", itemRoutes);
 
