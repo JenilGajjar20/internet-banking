@@ -19,7 +19,8 @@
     <div class="auth-section--right">
       <div class="container auth-form">
         <!-- <img src="" alt="nirma-bank" /> -->
-        <p class="app-name">Bank of <br /><span>Nirma</span></p>
+        <img src="@/assets/img/app_logo.png" alt="nirma-bank" />
+        <!-- <p class="app-name">Bank of <br /><span>Nirma</span></p> -->
         <slot />
         <div class="version">
           <p>v {{ version }}</p>
@@ -65,9 +66,9 @@ const route = useRoute();
   }
   &-form {
     @apply flex flex-col justify-center h-screen;
-    // img {
-    //   @apply mx-auto;
-    // }
+    img {
+      @apply rounded-full h-24 w-24 lg:h-32 lg:w-32 mx-auto border border-black shadow-xl;
+    }
     .app-name {
       @apply text-center text-lg font-bold leading-3 text-grey-600;
       span {

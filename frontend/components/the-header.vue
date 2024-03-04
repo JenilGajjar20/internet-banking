@@ -2,7 +2,7 @@
   <div class="header-section">
     <div class="container header-section__content">
       <div class="header-section__content--img">
-        <img src="" alt="nirma-bank" />
+        <img src="@/assets/img/app_logo.png" alt="nirma-bank" />
       </div>
       <div class="menu-icon">
         <Icon name="uiw:menu" @click="openSidebar" />
@@ -41,6 +41,11 @@ const closeSidebar = () => {
     @apply bg-primary-700 py-5 relative;
     &__content {
       @apply text-white flex items-center justify-between;
+      &--img {
+        img {
+          @apply rounded-full h-14 w-14 lg:h-20 lg:w-20;
+        }
+      }
     }
   }
 }

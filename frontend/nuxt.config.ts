@@ -1,11 +1,22 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxtjs/google-fonts"],
+  css: ["@/assets/css/global.css"],
   devtools: {
     enabled: true,
     timeline: {
       enabled: true,
     },
   },
-  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxtjs/google-fonts"],
-  css: ["@/assets/css/global.css"],
+  app: {
+    head: {
+      title: "Bank of Nirma",
+      meta: [
+        {
+          name: "description",
+          content: "Secure Online Banking System",
+        },
+      ],
+    },
+  },
 });
