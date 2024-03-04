@@ -1,5 +1,9 @@
 <template>
   <div class="auth-section primary-fonts">
+    <Transition name="slide-fade">
+      <Notify v-if="notify" />
+    </Transition>
+    <!-- <button @click="notifyMe">Notify</button> -->
     <div class="auth-section--left">
       <img src="../assets/img/auth-image.png" alt="" />
       <div class="image-content">
@@ -33,8 +37,15 @@
 <script setup>
 import { version } from "../package.json";
 import { useRoute } from "vue-router";
+import { ref } from "vue";
 
 const route = useRoute();
+
+const notify = ref(false);
+
+const notifyMe = () => {
+  notify.value = !notify.value;
+};
 </script>
 
 <style lang="scss">
