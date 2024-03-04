@@ -1,0 +1,14 @@
+{
+  "name": "internet-banking",
+  "scripts": {
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && nodemon index.js",
+    "frontend": "cd frontend && npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.0"
+  },
+  "author": "Jenil Gajjar",
+  "license": "ISC"
+}
