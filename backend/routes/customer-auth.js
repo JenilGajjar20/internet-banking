@@ -2,8 +2,11 @@ const router = require("express").Router();
 
 const { customerRegister, customerLogin } = require("../controllers/customer");
 
-router.post("/register", customerRegister);
+// Middleware
+const { customerAccess } = require("../middlewares/customer");
 
-router.post("/login", customerLogin);
+router.post("/register", customerAccess(["customer"]), customerRegister);
+
+router.post("/login", customerAccess(["customer"]), customerLogin);
 
 module.exports = router;

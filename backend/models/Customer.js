@@ -12,13 +12,9 @@ const customerSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    password: {
-      type: String,
-      required: true,
-    },
-    confirmPassword: {
-      type: String,
-    },
+    password: { type: String, required: true },
+    confirmPassword: { type: String },
+    role: { type: String, default: "customer", required: true },
   },
   {
     timestamps: true,

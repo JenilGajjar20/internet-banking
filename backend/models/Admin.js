@@ -12,11 +12,9 @@ const adminSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    password: {
-      type: String,
-      required: true,
-    },
+    password: { type: String, required: true },
     confirmPassword: { type: String },
+    role: { type: String, default: "admin", required: true },
   },
   {
     timestamps: true,
