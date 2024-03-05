@@ -14,7 +14,7 @@ const customerSchema = new mongoose.Schema(
     },
     password: { type: String, required: true },
     confirmPassword: { type: String },
-    role: { type: String, default: "customer", required: true },
+    role: { type: String, default: "customer" },
   },
   {
     timestamps: true,

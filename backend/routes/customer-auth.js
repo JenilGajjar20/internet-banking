@@ -5,8 +5,8 @@ const { customerRegister, customerLogin } = require("../controllers/customer");
 // Middleware
 const { customerAccess } = require("../middlewares/customer");
 
-router.post("/register", customerAccess(["customer"]), customerRegister);
+router.post("/register", customerRegister);
 
-router.post("/login", customerAccess(["customer"]), customerLogin);
+router.post("/login", customerLogin);
 
 module.exports = router;

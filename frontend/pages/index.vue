@@ -8,7 +8,7 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import { getCustomers } from "../api/customer/get-customers";
+import { getCustomers } from "@/api/customer/get-customers";
 
 const customers = ref([]);
 

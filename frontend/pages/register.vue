@@ -1,12 +1,16 @@
 <template>
-  <TheAuth>
+  <TheAuth
+    :notify="notify"
+    :notify-msg="notifyMsg"
+    :notify-status="notifyStatus"
+  >
     <template #default>
       <div class="register-form">
         <div class="register-form--header">
           <h4>Sign Up</h4>
           <ButtonLink label="login" to="login" icon />
         </div>
-        <form>
+        <form @submit.prevent="createAccount">
           <div class="input-field">
             <input
               type="text"
@@ -46,7 +50,8 @@
               <p>{{ !isShowConf ? "show" : "hide" }}</p>
             </div>
           </div>
-          <ButtonAuth label="Create Account" />
+          <input type="checkbox" id="checkbox" v-model="role" class="hidden" />
+          <ButtonAuth label="Create Account" :is-loading="isLoading" />
         </form>
       </div>
     </template>
@@ -55,15 +60,23 @@
 
 <script setup>
 import { ref } from "vue";
+import axios from "axios";
+// import { register } from "@/api/customer/auth";
 
 definePageMeta({
   layout: "auth",
 });
 
+const notify = ref(false);
+const notifyMsg = ref("");
+const notifyStatus = ref("");
+const isLoading = ref(false);
+
 const username = ref("");
 const email = ref("");
 const password = ref("");
 const confirmPassword = ref("");
+const role = ref("customer");
 
 const isShow = ref(false);
 const isShowConf = ref(false);
@@ -74,6 +87,53 @@ const showPass = () => {
 
 const showConfPass = () => {
   isShowConf.value = !isShowConf.value;
+};
+
+// onMounted = () => {
+//   if()
+// }
+
+const createAccount = async () => {
+  isLoading.value = true;
+  notify.value = true;
+  try {
+    const response = await axios.post(
+      "http://localhost:3001/api/auth/register",
+      {
+        username: username.value,
+        email: email.value,
+        password: password.value,
+        confirmPassword: confirmPassword.value,
+      }
+    );
+    console.log("response: ", response);
+    if (response.status === 200) {
+      notifyMsg.value = "Registered successfully!!";
+      notifyStatus.value = "success";
+    }
+    isLoading.value = false;
+    setTimeout(() => {
+      notify.value = false;
+    }, 3000);
+    username.value = "";
+    email.value = "";
+    password.value = "";
+    confirmPassword.value = "";
+  } catch (error) {
+    console.log("error: ", error);
+    if (error.response.status === 500) {
+      notifyMsg.value = "Fields cannot be empty!!";
+      notifyStatus.value = "danger";
+    }
+    isLoading.value = false;
+    setTimeout(() => {
+      notify.value = false;
+    }, 3000);
+    username.value = "";
+    email.value = "";
+    password.value = "";
+    confirmPassword.value = "";
+  }
 };
 </script>
 
