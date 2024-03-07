@@ -1,12 +1,16 @@
 <template>
-  <TheAuth>
+  <TheAuth
+    :notify="notify"
+    :notify-msg="notifyMsg"
+    :notify-status="notifyStatus"
+  >
     <template #default>
       <div class="login-form">
         <div class="login-form--header">
           <h4>Sign In</h4>
           <ButtonLink label="register" to="register" icon />
         </div>
-        <form>
+        <form @submit.prevent="loginAccount">
           <div class="input-field">
             <input type="email" placeholder="Enter your email" />
           </div>
@@ -20,7 +24,7 @@
               <p>{{ !isShow ? "show" : "hide" }}</p>
             </div>
           </div>
-          <ButtonAuth label="Login" />
+          <ButtonAuth label="Login" :is-loading="isLoading" />
         </form>
       </div>
     </template>
@@ -28,11 +32,17 @@
 </template>
 
 <script setup>
+import axios from "axios";
 import { ref } from "vue";
 
 definePageMeta({
   layout: "auth",
 });
+
+const notify = ref(false);
+const notifyMsg = ref("");
+const notifyStatus = ref("");
+const isLoading = ref(false);
 
 const email = ref("");
 const password = ref("");
@@ -41,6 +51,51 @@ const isShow = ref(false);
 
 const showPass = () => {
   isShow.value = !isShow.value;
+};
+
+const loginAccount = async () => {
+  isLoading.value = true;
+  notify.value = true;
+  try {
+    const response = await axios.post("http://localhost:3001/api/auth/login", {
+      // username: username.value,
+      email: email.value,
+      password: password.value,
+      // confirmPassword: confirmPassword.value,
+    });
+    console.log("response: ", response);
+    if (response.status === 200) {
+      notifyMsg.value = "Registered successfully!!";
+      notifyStatus.value = "success";
+      router.push({ name: "index" });
+    }
+    isLoading.value = false;
+    setTimeout(() => {
+      notify.value = false;
+    }, 3000);
+    username.value = "";
+    email.value = "";
+    password.value = "";
+    confirmPassword.value = "";
+  } catch (error) {
+    console.log("error: ", error);
+    if (error.response.status === 500) {
+      notifyMsg.value = "Fields cannot be empty!!";
+      notifyStatus.value = "danger";
+    }
+    if (error.response.status === 400) {
+      notifyMsg.value = error.response.data.message;
+      notifyStatus.value = "danger";
+    }
+    isLoading.value = false;
+    setTimeout(() => {
+      notify.value = false;
+    }, 3000);
+    username.value = "";
+    email.value = "";
+    password.value = "";
+    confirmPassword.value = "";
+  }
 };
 </script>
 

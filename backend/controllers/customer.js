@@ -34,12 +34,15 @@ const customerRegister = async (req, res) => {
 const customerLogin = async (req, res) => {
   try {
     const customer = await Customer.findOne({ username: req.body.username });
-    !customer && res.status(400).json("Invalid Username! Try Again.");
+    // !customer && res.status(400).json("Invalid Username! Try Again.");
 
     const customerEmail = await Customer.findOne({ email: req.body.email });
     !customerEmail && res.status(400).json("Invalid Email! Try Again.");
 
-    const validate = await bcrypt.compare(req.body.password, customer.password);
+    const validate = await bcrypt.compare(
+      req.body.password,
+      customerEmail.password
+    );
     !validate && res.status(400).json("Invalid Password! Try Again.");
 
     const { password, confirmPassword, ...others } = customer._doc;

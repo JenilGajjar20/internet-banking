@@ -62,8 +62,12 @@
 import { ref } from "vue";
 import axios from "axios";
 
+// import {env} from "../"
+
+// const env = "http://localhost:3001/api/";
+
 const router = useRouter();
-// import { register } from "@/api/customer/auth";
+import { register } from "@/api/customer/auth";
 
 definePageMeta({
   layout: "auth",
@@ -91,10 +95,6 @@ const showConfPass = () => {
   isShowConf.value = !isShowConf.value;
 };
 
-// onMounted = () => {
-//   if()
-// }
-
 const createAccount = async () => {
   isLoading.value = true;
   notify.value = true;
@@ -112,6 +112,7 @@ const createAccount = async () => {
     if (response.status === 200) {
       notifyMsg.value = "Registered successfully!!";
       notifyStatus.value = "success";
+      router.push({ name: "index" });
     }
     isLoading.value = false;
     setTimeout(() => {
@@ -121,8 +122,6 @@ const createAccount = async () => {
     email.value = "";
     password.value = "";
     confirmPassword.value = "";
-
-    router.push({ name: "index" });
   } catch (error) {
     console.log("error: ", error);
     if (error.response.status === 500) {
