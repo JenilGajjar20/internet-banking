@@ -9,6 +9,22 @@
     }"
   >
     <Icon
+      v-if="notifyStatus == 'success'"
+      name="uiw:circle-check"
+      class="text-2xl text-success-900"
+    />
+    <Icon
+      v-else-if="notifyStatus == 'danger' || notifyStatus == 'warning'"
+      name="uiw:warning"
+      class="text-2xl"
+      :class="notifyStatus == 'danger' ? 'text-danger-900' : 'text-warning-900'"
+    />
+    <Icon
+      v-else-if="notifyStatus == 'info'"
+      name="uiw:information"
+      class="text-2xl text-info-900"
+    />
+    <!-- <Icon
       name="uiw:circle-check"
       class="text-2xl"
       :class="{
@@ -17,7 +33,7 @@
         'text-warning-900': notifyStatus == 'warning',
         'text-info-900': notifyStatus == 'info',
       }"
-    />
+    /> -->
     <p
       class="ml-4 font-bold"
       :class="{

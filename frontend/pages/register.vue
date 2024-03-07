@@ -8,7 +8,7 @@
       <div class="register-form">
         <div class="register-form--header">
           <h4>Sign Up</h4>
-          <ButtonLink label="login" to="login" icon />
+          <ButtonLink label="login" to="login" :icon="true" />
         </div>
         <form @submit.prevent="createAccount">
           <div class="input-field">
@@ -61,6 +61,8 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
+
+const router = useRouter();
 // import { register } from "@/api/customer/auth";
 
 definePageMeta({
@@ -119,10 +121,16 @@ const createAccount = async () => {
     email.value = "";
     password.value = "";
     confirmPassword.value = "";
+
+    router.push({ name: "index" });
   } catch (error) {
     console.log("error: ", error);
     if (error.response.status === 500) {
       notifyMsg.value = "Fields cannot be empty!!";
+      notifyStatus.value = "danger";
+    }
+    if (error.response.status === 400) {
+      notifyMsg.value = error.response.data.message;
       notifyStatus.value = "danger";
     }
     isLoading.value = false;
