@@ -67,7 +67,7 @@ import axios from "axios";
 // const env = "http://localhost:3001/api/";
 
 const router = useRouter();
-import { register } from "@/api/customer/auth";
+// import { register } from "@/api/customer/auth";
 
 definePageMeta({
   layout: "auth",
@@ -112,7 +112,7 @@ const createAccount = async () => {
     if (response.status === 200) {
       notifyMsg.value = "Registered successfully!!";
       notifyStatus.value = "success";
-      router.push({ name: "index" });
+      router.push({ name: "login" });
     }
     isLoading.value = false;
     setTimeout(() => {

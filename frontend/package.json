@@ -21,6 +21,8 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.11.4",
-    "nuxt-icon": "^0.6.8"
+    "@pinia/nuxt": "^0.5.1",
+    "nuxt-icon": "^0.6.8",
+    "pinia": "^2.1.7"
   }
 }

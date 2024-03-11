@@ -33,24 +33,26 @@ const customerRegister = async (req, res) => {
 
 const customerLogin = async (req, res) => {
   try {
-    const customer = await Customer.findOne({ username: req.body.username });
-    // !customer && res.status(400).json("Invalid Username! Try Again.");
-
     const customerEmail = await Customer.findOne({ email: req.body.email });
-    !customerEmail && res.status(400).json("Invalid Email! Try Again.");
+    !customerEmail && res.status(400).json({ message: "Email does not exist" });
 
     const validate = await bcrypt.compare(
       req.body.password,
       customerEmail.password
     );
-    !validate && res.status(400).json("Invalid Password! Try Again.");
+    !validate &&
+      res.status(400).json({ message: "Invalid Password! Try Again." });
 
-    const { password, confirmPassword, ...others } = customer._doc;
+    const { password, ...others } = customerEmail._doc;
+
     return res
       .status(200)
       .json({ data: others, message: "Logged in successfully" });
   } catch (err) {
-    return res.status(400).json(err);
+    console.log("error", err);
+    return res
+      .status(400)
+      .json({ error: err, message: "Oops! Something went wrong." });
   }
 };
 

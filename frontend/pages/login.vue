@@ -12,15 +12,19 @@
         </div>
         <form @submit.prevent="loginAccount">
           <div class="input-field">
-            <input type="email" placeholder="Enter your email" />
+            <input
+              type="email"
+              v-model="user.email"
+              placeholder="Enter your email"
+            />
           </div>
           <div class="input-field relative">
             <input
               :type="!isShow ? 'password' : 'text'"
-              v-model="password"
+              v-model="user.password"
               placeholder="Enter your password"
             />
-            <div v-show="password" class="show-pass" @click="showPass">
+            <div v-show="user.password" class="show-pass" @click="showPass">
               <p>{{ !isShow ? "show" : "hide" }}</p>
             </div>
           </div>
@@ -35,6 +39,14 @@
 import axios from "axios";
 import { ref } from "vue";
 
+import { storeToRefs } from "pinia";
+import { useAuthStore } from "~/store/auth";
+
+const { authenticateUser } = useAuthStore();
+const { authenticated } = storeToRefs(useAuthStore());
+
+const router = useRouter();
+
 definePageMeta({
   layout: "auth",
 });
@@ -44,8 +56,12 @@ const notifyMsg = ref("");
 const notifyStatus = ref("");
 const isLoading = ref(false);
 
-const email = ref("");
-const password = ref("");
+const user = ref({
+  email: "",
+  password: "",
+});
+// const email = ref("");
+// const password = ref("");
 
 const isShow = ref(false);
 
@@ -54,49 +70,53 @@ const showPass = () => {
 };
 
 const loginAccount = async () => {
-  isLoading.value = true;
-  notify.value = true;
-  try {
-    const response = await axios.post("http://localhost:3001/api/auth/login", {
-      // username: username.value,
-      email: email.value,
-      password: password.value,
-      // confirmPassword: confirmPassword.value,
-    });
-    console.log("response: ", response);
-    if (response.status === 200) {
-      notifyMsg.value = "Registered successfully!!";
-      notifyStatus.value = "success";
-      router.push({ name: "index" });
-    }
-    isLoading.value = false;
-    setTimeout(() => {
-      notify.value = false;
-    }, 3000);
-    username.value = "";
-    email.value = "";
-    password.value = "";
-    confirmPassword.value = "";
-  } catch (error) {
-    console.log("error: ", error);
-    if (error.response.status === 500) {
-      notifyMsg.value = "Fields cannot be empty!!";
-      notifyStatus.value = "danger";
-    }
-    if (error.response.status === 400) {
-      notifyMsg.value = error.response.data.message;
-      notifyStatus.value = "danger";
-    }
-    isLoading.value = false;
-    setTimeout(() => {
-      notify.value = false;
-    }, 3000);
-    username.value = "";
-    email.value = "";
-    password.value = "";
-    confirmPassword.value = "";
+  await authenticateUser(user.value);
+  console.log("user: ", user.value);
+  console.log("authenticated: ", authenticated.value);
+  if (authenticated.value) {
+    router.push("/");
   }
+  user.value = "";
 };
+
+// const loginAccount = async () => {
+//   isLoading.value = true;
+//   notify.value = true;
+//   try {
+//     const response = await axios.post("http://localhost:3001/api/auth/login", {
+//       email: email.value,
+//       password: password.value,
+//     });
+//     console.log("response: ", response);
+//     if (response.status === 200) {
+//       notifyMsg.value = "Login successfully!!";
+//       notifyStatus.value = "success";
+//       router.push({ name: "index" });
+//     }
+//     isLoading.value = false;
+//     setTimeout(() => {
+//       notify.value = false;
+//     }, 3000);
+//     email.value = "";
+//     password.value = "";
+//   } catch (error) {
+//     console.log("error: ", error);
+//     if (error.response?.status === 500) {
+//       notifyMsg.value = "Fields cannot be empty!!";
+//       notifyStatus.value = "danger";
+//     }
+//     if (error.response?.status === 400) {
+//       notifyMsg.value = error.response?.data.message;
+//       notifyStatus.value = "danger";
+//     }
+//     isLoading.value = false;
+//     setTimeout(() => {
+//       notify.value = false;
+//     }, 3000);
+//     email.value = "";
+//     password.value = "";
+//   }
+// };
 </script>
 
 <style lang="scss">
