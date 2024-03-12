@@ -12,6 +12,7 @@ export const useAuthStore = defineStore("auth", {
     loading: false,
   }),
   actions: {
+    // CUSTOMER AUTHENTICATION
     async authenticateUser({ email, password }: UserPayloadInterface) {
       const { data, pending }: any = await axios.post(
         "http://localhost:3001/api/auth/login",
@@ -20,16 +21,18 @@ export const useAuthStore = defineStore("auth", {
           password,
         }
       );
-      console.log("data: ", data.data);
+      console.log("data: ", data.token);
       this.loading = pending;
 
-      if (data.data.role === "admin") {
-        const token = useCookie("admin-token");
-        token.value = data?.data?.token;
+      if (data.data.role === "customer") {
+        const token = useCookie("customer-token");
+        token.value = data?.token;
         console.log("token: ", token.value);
         this.authenticated = true;
       }
     },
+
+    // ADMIN AUTHENTICATION
     async authenticateAdmin({ email, password }: UserPayloadInterface) {
       const { data, pending }: any = await axios.post(
         "http://localhost:3001/api/auth/admin/login",
@@ -41,8 +44,8 @@ export const useAuthStore = defineStore("auth", {
       console.log("data: ", data.data);
       this.loading = pending;
 
-      if (data.data.role === "customer") {
-        const token = useCookie("customer-token");
+      if (data.data.role === "admin") {
+        const token = useCookie("admin-token");
         token.value = data?.data?.token;
         console.log("token: ", token.value);
         this.authenticated = true;

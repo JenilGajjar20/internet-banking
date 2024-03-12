@@ -73,6 +73,10 @@ const loginAccount = async () => {
   await authenticateUser(user.value);
   console.log("user: ", user.value);
   console.log("authenticated: ", authenticated.value);
+  localStorage.setItem(
+    "customer-auth",
+    JSON.stringify(user.value, authenticated.value)
+  );
   if (authenticated.value) {
     router.push("/");
   } else {

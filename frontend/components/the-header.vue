@@ -24,6 +24,18 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from "vue";
+
+const customer = ref("");
+
+onMounted(async () => {
+  try {
+    customer.value = JSON.parse(localStorage.getItem("customer-auth"));
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 const isOpen = ref(false);
 
 const openSidebar = () => {
