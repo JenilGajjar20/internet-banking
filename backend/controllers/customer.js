@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // Customer Model
 const Customer = require("../models/Customer");
@@ -43,11 +44,15 @@ const customerLogin = async (req, res) => {
     !validate &&
       res.status(400).json({ message: "Invalid Password! Try Again." });
 
+    const token = jwt.sign({ customerId: customerEmail._id }, "SECRET_KEY", {
+      expiresIn: "1h",
+    });
+
     const { password, ...others } = customerEmail._doc;
 
     return res
       .status(200)
-      .json({ data: others, message: "Logged in successfully" });
+      .json({ token: token, data: others, message: "Logged in successfully" });
   } catch (err) {
     console.log("error", err);
     return res
