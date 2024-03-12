@@ -75,6 +75,8 @@ const loginAccount = async () => {
   console.log("authenticated: ", authenticated.value);
   if (authenticated.value) {
     router.push("/");
+  } else {
+    router.push("/login");
   }
   user.value = "";
 };

@@ -167,8 +167,4 @@ const createAccount = async () => {
     }
   }
 }
-
-.show-pass {
-  @apply absolute top-3 right-2 cursor-pointer uppercase;
-}
 </style>

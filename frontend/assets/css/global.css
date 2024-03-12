@@ -34,3 +34,8 @@
     transform: translateX(-20px);
     opacity: 0;
   }
+
+  
+.show-pass {
+  @apply absolute top-3 right-2 cursor-pointer uppercase;
+}
