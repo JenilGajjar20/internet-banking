@@ -44,9 +44,13 @@ const customerLogin = async (req, res) => {
     !validate &&
       res.status(400).json({ message: "Invalid Password! Try Again." });
 
-    const token = jwt.sign({ customerId: customerEmail._id }, "SECRET_KEY", {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { customer_id: customerEmail._id },
+      process.env.JWT_SECRET_KEY,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     const { password, ...others } = customerEmail._doc;
 
@@ -70,4 +74,18 @@ const getCustomers = async (req, res) => {
   }
 };
 
-module.exports = { customerRegister, customerLogin, getCustomers };
+const getCustomerById = async (req, res) => {
+  try {
+    const customer = await Customer.findById(req.params.id);
+    return res.status(200).json({ data: customer });
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+};
+
+module.exports = {
+  customerRegister,
+  customerLogin,
+  getCustomers,
+  getCustomerById,
+};
