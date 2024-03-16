@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="primary-fonts">
     <TheHeader />
     <div>
       <slot />

@@ -13,6 +13,7 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
+  plugins: ["@/plugins/v-click-outside.js"],
   app: {
     head: {
       title: "Bank of Nirma",

@@ -37,7 +37,7 @@ const items = [
   ul {
     @apply flex items-center gap-6;
     li {
-      // @apply
+      @apply hover:text-primary-900;
     }
   }
 }
