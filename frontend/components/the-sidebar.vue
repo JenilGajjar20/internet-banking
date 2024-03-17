@@ -9,12 +9,7 @@
       </li>
     </ul>
     <ul v-if="customer.email" class="sidebar-items after-loggedIn">
-      <li
-        v-for="item in items2"
-        :key="item.id"
-        class="item"
-        :class="{ 'text-danger-700': item.value == 'logout' }"
-      >
+      <li v-for="item in items2" :key="item.id" class="item">
         <a :href="item.link">{{ item.label }}</a>
       </li>
     </ul>
@@ -26,21 +21,21 @@
 const items = [
   {
     id: 1,
-    label: "About Us",
-    value: "about-us",
-    link: "/about-us",
+    label: "Accounts",
+    value: "accounts",
+    link: "/accounts",
   },
   {
     id: 2,
-    label: "Saving Account",
-    value: "saving-account",
-    link: "/saving-account",
+    label: "Loans",
+    value: "loans",
+    link: "/loans",
   },
   {
     id: 3,
-    label: "Deposits",
-    value: "deposits",
-    link: "/deposits",
+    label: "About Us",
+    value: "about-us",
+    link: "/about-us",
   },
 ];
 
@@ -68,12 +63,6 @@ const items2 = [
     label: "Help",
     value: "help",
     link: "help",
-  },
-  {
-    id: 5,
-    label: "Logout",
-    value: "logout",
-    link: "logout",
   },
 ];
 

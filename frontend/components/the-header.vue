@@ -78,12 +78,6 @@ const dropdownItems = [
     value: "help",
     link: "help",
   },
-  {
-    id: 5,
-    label: "Logout",
-    value: "logout",
-    link: "logout",
-  },
 ];
 
 onMounted(async () => {

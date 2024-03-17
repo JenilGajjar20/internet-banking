@@ -1,7 +1,10 @@
 <template>
   <div class="container">
-    <!-- Hero Section -->
+    <!-- The Hero Section -->
     <TheHero :customer="customer.email" />
+
+    <!-- Our Services Section -->
+    <OurServices />
   </div>
 </template>
 

@@ -12,21 +12,21 @@
 const items = [
   {
     id: 1,
-    label: "About Us",
-    value: "about-us",
-    link: "/about-us",
+    label: "Accounts",
+    value: "accounts",
+    link: "/accounts",
   },
   {
     id: 2,
-    label: "Saving Account",
-    value: "saving-account",
-    link: "/saving-account",
+    label: "Loans",
+    value: "loans",
+    link: "/loans",
   },
   {
     id: 3,
-    label: "Deposits",
-    value: "deposits",
-    link: "/deposits",
+    label: "About Us",
+    value: "about-us",
+    link: "/about-us",
   },
 ];
 </script>

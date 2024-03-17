@@ -1,5 +1,5 @@
 <template>
-  <p v-html="content"></p>
+  <p v-html="content" class="pt-4"></p>
 </template>
 
 <script setup>
