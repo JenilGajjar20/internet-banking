@@ -70,7 +70,9 @@ const getCustomers = async (req, res) => {
     const customers = await Customer.find();
     return res.status(200).json({ data: customers });
   } catch (err) {
-    return res.status(500).json(err);
+    return res
+      .status(500)
+      .json({ error: err, message: "Oops! Something went wrong." });
   }
 };
 
@@ -79,7 +81,9 @@ const getCustomerById = async (req, res) => {
     const customer = await Customer.findById(req.params.id);
     return res.status(200).json({ data: customer });
   } catch (err) {
-    return res.status(500).json(err);
+    return res
+      .status(500)
+      .json({ error: err, message: "Oops! Something went wrong." });
   }
 };
 
