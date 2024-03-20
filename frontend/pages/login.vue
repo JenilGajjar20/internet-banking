@@ -70,15 +70,16 @@ const showPass = () => {
 };
 
 const loginAccount = async () => {
+  isLoading.value = true;
   await authenticateUser(user.value);
-  console.log("user: ", user.value);
-  console.log("authenticated: ", authenticated.value);
-  localStorage.setItem(
-    "customer-auth",
-    JSON.stringify(user.value, authenticated.value)
-  );
   if (authenticated.value) {
     router.push("/");
+    // notifyMsg.value = "Login successfully!!";
+    // notifyStatus.value = "success";
+    // isLoading.value = false;
+    //     setTimeout(() => {
+    //   notify.value = false;
+    // }, 3000);
   } else {
     router.push("/login");
   }

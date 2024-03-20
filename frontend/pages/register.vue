@@ -112,11 +112,11 @@ const createAccount = async () => {
     if (response.status === 200) {
       notifyMsg.value = "Registered successfully!!";
       notifyStatus.value = "success";
-      router.push({ name: "login" });
     }
     isLoading.value = false;
     setTimeout(() => {
       notify.value = false;
+      router.push({ name: "login" });
     }, 3000);
     username.value = "";
     email.value = "";
@@ -124,11 +124,11 @@ const createAccount = async () => {
     confirmPassword.value = "";
   } catch (error) {
     console.log("error: ", error);
-    if (error.response.status === 500) {
+    if (error?.response?.status === 500) {
       notifyMsg.value = "Fields cannot be empty!!";
       notifyStatus.value = "danger";
     }
-    if (error.response.status === 400) {
+    if (error?.response?.status === 400) {
       notifyMsg.value = error.response.data.message;
       notifyStatus.value = "danger";
     }

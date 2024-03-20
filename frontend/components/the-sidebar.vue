@@ -8,7 +8,7 @@
         <a :href="item.link">{{ item.label }}</a>
       </li>
     </ul>
-    <ul v-if="customer.email" class="sidebar-items after-loggedIn">
+    <ul v-if="customer?.data" class="sidebar-items after-loggedIn">
       <li v-for="item in items2" :key="item.id" class="item">
         <a :href="item.link">{{ item.label }}</a>
       </li>

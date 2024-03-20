@@ -28,7 +28,9 @@ const customerRegister = async (req, res) => {
         .status(400)
         .json({ message: "username or email already exist!!" });
     }
-    return res.status(500).json(err);
+    return res
+      .status(500)
+      .json({ error: err, message: "Oops! Something went wrong" });
   }
 };
 

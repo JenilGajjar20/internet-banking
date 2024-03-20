@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- The Hero Section -->
-    <TheHero :customer="customer.email" />
+    <TheHero :customer-data="customer?.data" />
 
     <!-- Our Services Section -->
     <OurServices />
@@ -15,7 +15,7 @@ const customer = ref("");
 
 onMounted(async () => {
   try {
-    customer.value = await JSON.parse(localStorage.getItem("customer-auth"));
+    customer.value = await JSON.parse(localStorage.getItem("customer-data"));
   } catch (e) {
     console.log(e);
   }

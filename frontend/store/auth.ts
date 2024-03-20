@@ -21,15 +21,19 @@ export const useAuthStore = defineStore("auth", {
           password,
         }
       );
-      console.log("data: ", data.token);
+      console.log("data: ", data);
+      localStorage.setItem("customer-data", JSON.stringify(data));
       this.loading = pending;
 
       if (data.data.role === "customer") {
-        const token = useCookie("customer-token");
-        token.value = data?.token;
-        console.log("token: ", token.value);
+        const token = data.token;
+        localStorage.setItem("customer-token", token);
         this.authenticated = true;
       }
+    },
+    logOutCustomer() {
+      localStorage.removeItem("customer-data");
+      this.authenticated = false;
     },
 
     // ADMIN AUTHENTICATION
@@ -50,11 +54,6 @@ export const useAuthStore = defineStore("auth", {
         console.log("token: ", token.value);
         this.authenticated = true;
       }
-    },
-    logOutCustomer() {
-      const token = useCookie("customer-token");
-      this.authenticated = false;
-      token.value = null;
     },
     logOutAdmin() {
       const token = useCookie("admin-token");

@@ -19,13 +19,12 @@
 
       <!-- Header List Items -->
       <ListItems />
-
       <div
-        v-if="customer.email"
+        v-if="customer.data"
         class="header-section--user"
         @click="showDropdown"
       >
-        <p>{{ customer.email }}</p>
+        <p>{{ customer?.data?.username }}</p>
         <Icon name="uiw:caret-down" class="" />
         <ul v-if="isDropdown" class="dropdown" v-click-outside="closeDropdown">
           <li v-for="item in dropdownItems" :key="item.id">
@@ -82,7 +81,7 @@ const dropdownItems = [
 
 onMounted(async () => {
   try {
-    customer.value = JSON.parse(localStorage.getItem("customer-auth"));
+    customer.value = await JSON.parse(localStorage.getItem("customer-data"));
   } catch (e) {
     console.log(e);
   }
