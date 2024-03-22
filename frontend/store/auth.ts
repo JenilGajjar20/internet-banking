@@ -14,7 +14,7 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     // CUSTOMER AUTHENTICATION
     async authenticateUser({ email, password }: UserPayloadInterface) {
-      const { data, pending }: any = await axios.post(
+      const { data } = await axios.post(
         "http://localhost:3001/api/auth/login",
         {
           email,
@@ -23,7 +23,6 @@ export const useAuthStore = defineStore("auth", {
       );
       console.log("data: ", data);
       localStorage.setItem("customer-data", JSON.stringify(data));
-      this.loading = pending;
 
       if (data.data.role === "customer") {
         const token = data.token;

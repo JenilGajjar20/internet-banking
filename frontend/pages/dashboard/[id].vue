@@ -1,7 +1,7 @@
 <template>
-  <div class="dashboard-section container">
-    <DashboardSidebar :customer-data="customerData" />
-    <div class="">main section</div>
+  <div class="dashboard-section container primary-fonts">
+    <DashboardMobile class="lg:hidden" :customer-data="customerData" />
+    <DashboardDesktop class="hidden lg:block" :customer-data="customerData" />
   </div>
 </template>
 
@@ -39,7 +39,7 @@ onMounted(async () => {
 <style lang="scss">
 .dashboard {
   &-section {
-    @apply py-5;
+    @apply py-5 h-screen relative;
   }
 }
 </style>

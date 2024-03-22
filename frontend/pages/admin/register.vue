@@ -44,7 +44,7 @@
               <p>{{ !isShowConf ? "show" : "hide" }}</p>
             </div>
           </div>
-          <ButtonAuth label="Create Account" class="bg-white" />
+          <ButtonAuth label="Create Account" />
         </form>
         <div class="admin-login--form--bottom">
           <p>Already have account?</p>

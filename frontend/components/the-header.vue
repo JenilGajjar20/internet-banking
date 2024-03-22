@@ -20,7 +20,7 @@
       <!-- Header List Items -->
       <ListItems />
       <div
-        v-if="customer.data"
+        v-if="customer?.data"
         class="header-section--user"
         @click="showDropdown"
       >
@@ -39,7 +39,7 @@
         v-else
         to="login"
         label="Log In"
-        class="bg-white text-primary-700 hidden lg:block"
+        class="text-white bg-primary-700 hidden lg:block"
       />
     </div>
   </div>

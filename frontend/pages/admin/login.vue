@@ -23,7 +23,7 @@
               <p>{{ !isShow ? "show" : "hide" }}</p>
             </div>
           </div>
-          <ButtonAuth label="Login" class="bg-white" />
+          <ButtonAuth label="Login" />
         </form>
         <div class="admin-login--form--bottom">
           <p>Don't have account?</p>

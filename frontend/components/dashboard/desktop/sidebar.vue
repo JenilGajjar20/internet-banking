@@ -1,11 +1,15 @@
 <template>
-  <div class="sidebar-section">{{ customerData.data.username }}</div>
+  <div class="sidebar-section">
+    <pre>
+      {{ customerData }}
+    </pre>
+  </div>
 </template>
 
 <script setup>
 defineProps({
   customerData: {
-    type: Object,
+    type: [Object, String],
     default: () => {},
   },
 });
@@ -14,7 +18,7 @@ defineProps({
 <style lang="scss">
 .sidebar {
   &-section {
-    @apply bg-primary-500 rounded-lg p-4 text-white;
+    // @apply bg-primary-700 rounded-lg p-4 text-white;
   }
 }
 </style>

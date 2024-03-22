@@ -56,6 +56,8 @@ const notifyMsg = ref("");
 const notifyStatus = ref("");
 const isLoading = ref(false);
 
+const data = ref({});
+
 const user = ref({
   email: "",
   password: "",
@@ -71,19 +73,28 @@ const showPass = () => {
 
 const loginAccount = async () => {
   isLoading.value = true;
+  notify.value = true;
+
+  // Authenticate User
   await authenticateUser(user.value);
+
+  // Getting data from local storage
+  data.value = await JSON.parse(localStorage.getItem("customer-data"));
+
+  // Checking if authenticated value is 'true'
   if (authenticated.value) {
-    router.push("/");
-    // notifyMsg.value = "Login successfully!!";
-    // notifyStatus.value = "success";
-    // isLoading.value = false;
-    //     setTimeout(() => {
-    //   notify.value = false;
-    // }, 3000);
+    notifyMsg.value = data?.value?.message;
+    notifyStatus.value = "success";
+    setTimeout(() => {
+      isLoading.value = false;
+      notify.value = false;
+      user.value = "";
+      router.push(`/dashboard/${data.value._id}`);
+    }, 1000);
   } else {
     router.push("/login");
+    user.value = "";
   }
-  user.value = "";
 };
 
 // const loginAccount = async () => {
