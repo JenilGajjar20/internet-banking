@@ -1,6 +1,16 @@
 const router = require("express").Router();
-const { createTransaction } = require("../controllers/transactions");
+const {
+  createTransaction,
+  getAllTransactions,
+  getTransactionById,
+} = require("../controllers/transactions");
 
-router.post("/", createTransaction);
+const authMiddleware = require("../middlewares/auth");
+
+router.post("/new", authMiddleware, createTransaction);
+
+router.get("/all", authMiddleware, getAllTransactions);
+
+router.get("/:id", authMiddleware, getTransactionById);
 
 module.exports = router;
