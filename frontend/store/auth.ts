@@ -21,7 +21,7 @@ export const useAuthStore = defineStore("auth", {
           password,
         }
       );
-      console.log("data: ", data);
+      // console.log("data: ", data);
       localStorage.setItem("customer-data", JSON.stringify(data));
 
       if (data.data.role === "customer") {

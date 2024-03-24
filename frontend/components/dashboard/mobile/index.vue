@@ -1,12 +1,7 @@
 <template>
   <div class="mobile">
     <DashboardMobileProfileCard :customer-data="customerData" />
-    <!-- {{ customerData.data._id }} -->
-    <div class="bottom-bar">
-      <div class="" v-for="item in bottomItems" :key="item.id">
-        <NuxtLink :to="`${item.link}`">{{ item.label }}</NuxtLink>
-      </div>
-    </div>
+    <DashboardMobileBottom :customer-data="customerData" :items="bottomItems" />
   </div>
 </template>
 
@@ -23,33 +18,31 @@ const bottomItems = [
     id: 1,
     label: "Transactions",
     value: "transactions",
+    icon: "tdesign:undertake-transaction",
     link: "transactions",
   },
   {
     id: 2,
     label: "Statistics",
     value: "statistics",
+    icon: "gridicons:stats",
     link: "statistics",
   },
   {
     id: 3,
     label: "Deposits",
     value: "deposits",
+    icon: "mdi:bank-transfer-in",
     link: "deposits",
   },
   {
     id: 4,
     label: "Settings",
     value: "settings",
+    icon: "uiw:setting",
     link: "settings",
   },
 ];
 </script>
 
-<style lang="scss">
-.mobile {
-  .bottom-bar {
-    @apply absolute bottom-0 bg-white py-4;
-  }
-}
-</style>
+<style lang="scss"></style>

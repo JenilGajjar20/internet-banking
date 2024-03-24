@@ -10,7 +10,7 @@ import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "~/store/auth";
 
-const customerData = ref("");
+const customerData = ref({});
 
 definePageMeta({
   layout: "dashboard",
@@ -25,8 +25,11 @@ onMounted(async () => {
     customerData.value = await JSON.parse(
       localStorage.getItem("customer-data")
     );
+    if (customerData.value === null) {
+      router.push({ name: "login" });
+    }
   } catch (e) {
-    console.log(e);
+    console.log("error: ", e);
   }
 });
 

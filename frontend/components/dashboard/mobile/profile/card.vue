@@ -2,7 +2,7 @@
   <div class="profile-card">
     <div class="profile-card__section">
       <div class="profile-card__content">
-        <DashboardMobileProfileImg :customer-data="customerData.data" />
+        <DashboardMobileProfileImg :customer-data="customerData?.data" />
         <div class="profile-card__content--user">
           <p>{{ customerData?.data?.username }}</p>
           <span>{{ customerData?.data?.email }}</span>

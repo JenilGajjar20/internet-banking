@@ -17,10 +17,6 @@
     font-family: "Lato";
 }
 
-/*
-  Enter and leave animations can use different
-  durations and timing functions.
-*/
 .slide-fade-enter-active {
     transition: all 0.3s ease-out;
   }
@@ -38,4 +34,22 @@
   
 .show-pass {
   @apply absolute top-3 right-2 cursor-pointer uppercase;
+}
+
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
