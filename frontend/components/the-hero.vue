@@ -36,8 +36,8 @@ defineProps({
     default: () => {},
   },
   isToken: {
-    type: String,
-    default: "",
+    type: Boolean,
+    default: false,
   },
 });
 </script>

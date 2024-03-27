@@ -8,7 +8,7 @@
         <a :href="item.link">{{ item.label }}</a>
       </li>
     </ul>
-    <ul v-if="customer?.data" class="sidebar-items after-loggedIn">
+    <ul v-if="isToken" class="sidebar-items after-loggedIn">
       <li v-for="item in items2" :key="item.id" class="item">
         <a :href="item.link">{{ item.label }}</a>
       </li>
@@ -73,6 +73,7 @@ defineProps({
     type: Object,
     default: () => {},
   },
+  isToken: { type: Boolean, default: false },
 });
 </script>
 

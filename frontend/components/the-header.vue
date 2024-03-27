@@ -13,17 +13,14 @@
         <TheSidebar
           v-if="isOpen"
           @close-sidebar="closeSidebar"
+          :is-token="isToken"
           :customer="customer"
         />
       </Transition>
 
       <!-- Header List Items -->
       <ListItems />
-      <div
-        v-if="customer?.token"
-        class="header-section--user"
-        @click="showDropdown"
-      >
+      <div v-if="isToken" class="header-section--user" @click="showDropdown">
         <p>{{ customer?.data?.username }}</p>
         <Icon name="uiw:caret-down" class="" />
         <ul v-if="isDropdown" class="dropdown" v-click-outside="closeDropdown">
@@ -46,11 +43,12 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 const customer = ref("");
 const isDropdown = ref(false);
 const isOpen = ref(false);
+const isToken = ref(false);
 
 const dropdownItems = [
   {
@@ -82,9 +80,17 @@ const dropdownItems = [
 onMounted(async () => {
   try {
     customer.value = await JSON.parse(localStorage.getItem("customer-data"));
+    isToken.value = checkTokenExpiry.value;
   } catch (e) {
     console.log(e);
   }
+});
+
+const checkTokenExpiry = computed(() => {
+  const token = localStorage.getItem("customer-token");
+  const tokenData = JSON.parse(atob(token.split(".")[1]));
+  const currentTime = Math.floor(Date.now() / 1000);
+  return tokenData.exp >= currentTime;
 });
 
 const openSidebar = () => {
