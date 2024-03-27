@@ -2,7 +2,9 @@
   <div class="bottom-bar">
     <div class="bottom-bar__items" v-for="item in items" :key="item.id">
       <Icon :name="item.icon" />
-      <NuxtLink :to="`${item.link}/${customerData?.data?._id}`">
+      <NuxtLink
+        :to="isToken ? 'login' : `${item.link}/${customerData?.data?._id}`"
+      >
         {{ item.label }}
       </NuxtLink>
     </div>
@@ -18,6 +20,10 @@ defineProps({
   items: {
     type: Array,
     default: () => [],
+  },
+  isToken: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>

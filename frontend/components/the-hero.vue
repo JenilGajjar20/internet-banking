@@ -10,9 +10,11 @@
           content="Welcome to Bank of Nirma, where banking meets convenience and security. The Internet Banking platform empowers you to take control of your finances anytime, anywhere."
         />
         <ButtonSolidLink
-          :to="customerData ? `dashboard/${customerData._id}` : 'login'"
+          :to="
+            isToken && customerData ? `dashboard/${customerData._id}` : 'login'
+          "
           icon
-          :label="customerData ? 'View Dashboard' : 'Login'"
+          :label="isToken && customerData ? 'View Dashboard' : 'Login'"
           class="bg-primary-700 text-white text-sm shadow-xl lg:text-lg hover:bg-primary-600"
         />
       </div>
@@ -32,6 +34,10 @@ defineProps({
   customerData: {
     type: Object,
     default: () => {},
+  },
+  isToken: {
+    type: String,
+    default: "",
   },
 });
 </script>

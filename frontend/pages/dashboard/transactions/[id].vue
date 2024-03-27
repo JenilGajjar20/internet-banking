@@ -4,6 +4,7 @@
       title="Transactions"
       :c-id="customerData?.data?._id"
       :items="transactions"
+      :is-loading="isLoading"
     />
   </div>
 </template>
@@ -15,6 +16,7 @@ import getAllTransactions from "@/api/transaction/custom";
 const customerData = ref({});
 const transactions = ref([]);
 const router = useRouter();
+const isLoading = ref(true);
 
 definePageMeta({
   layout: "dashboard",
@@ -49,6 +51,12 @@ const tokenExpiry = async () => {
 
 const allTransactions = async () => {
   const response = await getAllTransactions();
-  transactions.value = response?.data;
+  if (response) {
+    isLoading.value = true;
+    setTimeout(() => {
+      isLoading.value = false;
+      transactions.value = response?.data;
+    }, 2000);
+  }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- The Hero Section -->
-    <TheHero :customer-data="customer?.data" />
+    <TheHero :customer-data="customer?.data" :is-token="customer?.token" />
 
     <!-- Our Services Section -->
     <OurServices />

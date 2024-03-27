@@ -20,7 +20,7 @@
       <!-- Header List Items -->
       <ListItems />
       <div
-        v-if="customer?.data"
+        v-if="customer?.token"
         class="header-section--user"
         @click="showDropdown"
       >
@@ -37,7 +37,7 @@
       </div>
       <ButtonSolidLink
         v-else
-        to="login"
+        to="/login"
         label="Log In"
         class="text-white bg-primary-700 hidden lg:block"
       />

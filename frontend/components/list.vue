@@ -7,7 +7,10 @@
         </NuxtLink>
         <h4>{{ title }}</h4>
       </div>
-      <div v-if="items.length != 0" class="list-section__content--body">
+      <div
+        v-if="items.length != 0 && !isLoading"
+        class="list-section__content--body"
+      >
         <div v-for="item in items" :key="item._id" class="item-content">
           <!-- @click="openDetail(item._id)" -->
           <div class="item item-content--top">
@@ -48,7 +51,11 @@
         </div> -->
         </div>
       </div>
-      <Error v-else label="No Transactions Found" />
+      <ShimmersList v-else-if="isLoading" />
+      <Error
+        v-else-if="!isLoading && items.length == 0"
+        label="No Transactions Found"
+      />
     </div>
   </div>
 </template>
@@ -61,11 +68,9 @@ const t_id = ref(null);
 
 defineProps({
   title: { type: String, default: "" },
-  items: {
-    type: Array,
-    default: [],
-  },
+  items: { type: Array, default: [] },
   cId: { type: [Number, String] },
+  isLoading: { type: Boolean, default: false },
 });
 
 const openDetail = (id) => {
