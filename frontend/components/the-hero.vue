@@ -21,7 +21,7 @@
       <div class="box-2">
         <img src="@/assets/img/hero-img.jpg" alt="hero-img" />
         <TheDescription
-          class="text-white text-xl"
+          class="text-white text-sm lg:text-base"
           content="Experience secure transactions, convenient account management, and personalized financial insights."
         />
       </div>
@@ -52,7 +52,7 @@ defineProps({
         @apply rounded-md mb-4 lg:pr-8 lg:mb-0 lg:w-3/4;
       }
       .box-2 {
-        @apply bg-gradient-to-t from-primary-700 to-primary-300 rounded-md shadow-2xl p-4 h-min lg:p-6 xl:w-1/4;
+        @apply bg-gradient-to-t from-primary-700 to-primary-300 rounded-md shadow-2xl p-4 h-min md:w-1/2 md:mx-auto lg:p-6 xl:w-1/4;
         img {
           @apply rounded-md;
         }

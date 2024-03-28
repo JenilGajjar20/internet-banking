@@ -13,9 +13,9 @@ onMounted(async () => {
     customerData.value = await JSON.parse(
       localStorage.getItem("customer-data")
     );
-    if (customerData.value === null) {
-      router.push({ name: "login" });
-    }
+    // if (customerData.value === null) {
+    //   router.push({ name: "login" });
+    // }
   } catch (e) {
     console.log("error: ", e);
   }

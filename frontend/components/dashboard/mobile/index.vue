@@ -1,19 +1,16 @@
 <template>
   <div class="mobile container">
     <DashboardMobileProfileCard :customer-data="customerData" />
-    <DashboardMobileBottom
-      :customer-data="customerData"
-      :items="bottomItems"
-      :is-token="isToken"
-    />
+    <DashboardMobileBottom :customer-data="customerData" :items="bottomItems" />
+    <!-- :is-token="isToken" -->
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+// import { ref } from "vue";
 
-const router = useRouter();
-const isToken = ref(false);
+// const router = useRouter();
+// const isToken = ref(false);
 
 defineProps({
   customerData: {
@@ -22,24 +19,24 @@ defineProps({
   },
 });
 
-onMounted(async () => {
-  tokenExpiry();
-});
+// onMounted(async () => {
+//   tokenExpiry();
+// });
 
-const tokenExpiry = async () => {
-  const token = localStorage.getItem("customer-token");
+// const tokenExpiry = async () => {
+//   const token = localStorage.getItem("customer-token");
 
-  if (token) {
-    const tokenData = JSON.parse(atob(token.split(".")[1]));
-    const currentTime = Math.floor(Date.now() / 1000);
+//   if (token) {
+//     const tokenData = JSON.parse(atob(token.split(".")[1]));
+//     const currentTime = Math.floor(Date.now() / 1000);
 
-    if (tokenData.exp < currentTime) {
-      isToken.value = true;
-      await router.push({ name: "login" });
-      throw new Error("Token expired");
-    }
-  }
-};
+//     if (tokenData.exp < currentTime) {
+//       isToken.value = true;
+//       await router.push({ name: "login" });
+//       throw new Error("Token expired");
+//     }
+//   }
+// };
 
 const bottomItems = [
   {

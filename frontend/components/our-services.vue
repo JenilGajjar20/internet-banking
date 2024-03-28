@@ -11,7 +11,7 @@
           label="Learn More"
           to="services"
           icon
-          class="mt-4 bg-primary-700 text-white text-sm shadow-xl hover:bg-primary-600"
+          class="hidden mt-4 bg-primary-700 text-white text-sm shadow-xl hover:bg-primary-600 lg:flex"
         />
       </div>
       <div class="services-section__content--right">
@@ -23,6 +23,12 @@
           <p>{{ service.text }}</p>
         </div>
       </div>
+      <ButtonSolidLink
+        label="Learn More"
+        to="services"
+        icon
+        class="mt-4 mx-auto bg-primary-700 text-white text-sm shadow-xl hover:bg-primary-600 lg:hidden"
+      />
     </div>
   </div>
 </template>

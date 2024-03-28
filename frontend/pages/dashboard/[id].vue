@@ -1,13 +1,12 @@
 <template>
   <div class="dashboard-section primary-fonts">
     <DashboardMobile class="lg:hidden" :customer-data="customerData" />
-    <DashboardDesktop class="hidden lg:block" :customer-data="customerData" />
+    <DashboardDesktop class="hidden lg:flex" :customer-data="customerData" />
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref } from "vue";
-import { storeToRefs } from "pinia";
 import { useAuthStore } from "~/store/auth";
 
 const customerData = ref({});
@@ -25,9 +24,9 @@ onMounted(async () => {
     customerData.value = await JSON.parse(
       localStorage.getItem("customer-data")
     );
-    if (customerData.value === null) {
-      router.push({ name: "login" });
-    }
+    // if (customerData.value === null) {
+    //   router.push({ name: "login" });
+    // }
   } catch (e) {
     console.log("error: ", e);
   }
