@@ -45,6 +45,8 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
 
+// import checkTokenExpiry from "@/mixins/token";
+
 const customer = ref("");
 const isDropdown = ref(false);
 const isOpen = ref(false);
