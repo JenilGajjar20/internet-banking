@@ -1,8 +1,8 @@
 <template>
   <div class="sidebar-section">
-    <pre>
-      {{ customerData }}
-    </pre>
+    <div class="sidebar-section__header">Header Content</div>
+    <div class="sidebar-section__body">Body Content</div>
+    <div class="sidebar-section__bottom">Bottom Content</div>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ defineProps({
 <style lang="scss">
 .sidebar {
   &-section {
-    // @apply bg-primary-700 rounded-lg p-4 text-white;
+    @apply bg-primary-700 w-fit rounded-lg p-4 text-white;
   }
 }
 </style>

@@ -1,7 +1,5 @@
 <template>
-  <div>
-    Desktop
-
+  <div class="px-4">
     <DashboardDesktopSidebar :customer-data="customerData" />
   </div>
 </template>

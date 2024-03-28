@@ -43,9 +43,8 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue";
-
-// import checkTokenExpiry from "@/mixins/token";
+import { onMounted, ref } from "vue";
+import checkTokenExpiry from "@/mixins/token";
 
 const customer = ref("");
 const isDropdown = ref(false);
@@ -82,17 +81,11 @@ const dropdownItems = [
 onMounted(async () => {
   try {
     customer.value = await JSON.parse(localStorage.getItem("customer-data"));
+    console.log("===>", checkTokenExpiry.value);
     isToken.value = checkTokenExpiry.value;
   } catch (e) {
     console.log(e);
   }
-});
-
-const checkTokenExpiry = computed(() => {
-  const token = localStorage.getItem("customer-token");
-  const tokenData = JSON.parse(atob(token.split(".")[1]));
-  const currentTime = Math.floor(Date.now() / 1000);
-  return tokenData.exp >= currentTime;
 });
 
 const openSidebar = () => {

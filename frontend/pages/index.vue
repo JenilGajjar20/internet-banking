@@ -9,7 +9,8 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
+import checkTokenExpiry from "@/mixins/token";
 
 const customer = ref("");
 const isToken = ref(false);
@@ -21,13 +22,6 @@ onMounted(async () => {
   } catch (e) {
     console.log(e);
   }
-});
-
-const checkTokenExpiry = computed(() => {
-  const token = localStorage.getItem("customer-token");
-  const tokenData = JSON.parse(atob(token.split(".")[1]));
-  const currentTime = Math.floor(Date.now() / 1000);
-  return tokenData.exp >= currentTime;
 });
 </script>
 

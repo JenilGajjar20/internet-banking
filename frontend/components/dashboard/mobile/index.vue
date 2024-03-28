@@ -1,5 +1,5 @@
 <template>
-  <div class="mobile">
+  <div class="mobile container">
     <DashboardMobileProfileCard :customer-data="customerData" />
     <DashboardMobileBottom
       :customer-data="customerData"

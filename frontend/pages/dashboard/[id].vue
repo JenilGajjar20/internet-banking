@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-section container primary-fonts">
+  <div class="dashboard-section primary-fonts">
     <DashboardMobile class="lg:hidden" :customer-data="customerData" />
     <DashboardDesktop class="hidden lg:block" :customer-data="customerData" />
   </div>
