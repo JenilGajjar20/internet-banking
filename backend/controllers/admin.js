@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // Admin Model
 const Admin = require("../models/Admin");
@@ -15,7 +16,6 @@ const adminRegister = async (req, res) => {
       username: req.body.username,
       email: req.body.email,
       password: hashedPass,
-      confirmPassword: hashedPass,
     });
 
     const admin = await createAdmin.save();
@@ -28,27 +28,43 @@ const adminRegister = async (req, res) => {
         .status(400)
         .json({ message: "username or email already exist!!" });
     }
-    return res.status(500).json(err);
+    return res
+      .status(500)
+      .json({ error: err, message: "Oops! Something went wrong" });
   }
 };
 
 const adminLogin = async (req, res) => {
   try {
-    const admin = await Admin.findOne({ username: req.body.username });
-    !admin && res.status(400).json("Invalid Username! Try Again.");
-
     const adminEmail = await Admin.findOne({ email: req.body.email });
-    !adminEmail && res.status(400).json("Invalid Email! Try Again.");
+    !adminEmail &&
+      res.status(400).json({ message: "Invalid Email! Try Again." });
 
-    const validate = await bcrypt.compare(req.body.password, admin.password);
-    !validate && res.status(400).json("Invalid Password! Try Again.");
+    const validate = await bcrypt.compare(
+      req.body.password,
+      adminEmail.password
+    );
+    !validate &&
+      res.status(400).json({ message: "Invalid Password! Try Again." });
 
-    const { password, confirmPassword, ...others } = admin._doc;
+    const adminToken = jwt.sign(
+      { admin_id: adminEmail._id },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: "24h" }
+    );
+
+    const { password, ...others } = adminEmail._doc;
     return res
       .status(200)
-      .json({ data: others, message: "Logged in successfully" });
+      .json({
+        token: adminToken,
+        data: others,
+        message: "Logged in successfully",
+      });
   } catch (err) {
-    return res.status(400).json(err);
+    return res
+      .status(400)
+      .json({ error: err, message: "Oops! Something went wrong" });
   }
 };
 
