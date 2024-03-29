@@ -5,7 +5,7 @@
         <div class="admin-login--form--header">
           <h4>Welcome Admin</h4>
         </div>
-        <form>
+        <form @submit.prevent="adminLogin">
           <div class="input-field">
             <input
               type="email"
@@ -39,13 +39,20 @@ definePageMeta({
   layout: "admin-auth",
 });
 
+import { storeToRefs } from "pinia";
+import { useAuthStore } from "~/store/auth";
+
+const { authenticateAdmin } = useAuthStore();
+const { authenticated } = storeToRefs(useAuthStore());
+
 const router = useRouter();
 
 // const notify = ref(false);
 // const notifyMsg = ref("");
 // const notifyStatus = ref("");
-// const isLoading = ref(false);
 
+const data = ref({});
+const isLoading = ref(false);
 const user = ref({
   email: "",
   password: "",
@@ -55,6 +62,15 @@ const isShow = ref(false);
 
 const showPass = () => {
   isShow.value = !isShow.value;
+};
+
+const adminLogin = async () => {
+  isLoading.value = true;
+
+  await authenticateAdmin(user.value);
+
+  data.value = await JSON.parse(localStorage.getItem("admin-token"));
+  console.log("data: ", data.value);
 };
 </script>
 

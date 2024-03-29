@@ -5,7 +5,7 @@
         <div class="admin-login--form--header">
           <h4>Create Account</h4>
         </div>
-        <form>
+        <form @submit.prevent="createAdminAccount">
           <div class="input-field">
             <input
               type="text"
@@ -44,7 +44,7 @@
               <p>{{ !isShowConf ? "show" : "hide" }}</p>
             </div>
           </div>
-          <ButtonAuth label="Create Account" />
+          <ButtonAuth label="Create Account" :is-loading="isLoading" />
         </form>
         <div class="admin-login--form--bottom">
           <p>Already have account?</p>
@@ -56,6 +56,8 @@
 </template>
 
 <script setup>
+import axios from "axios";
+
 definePageMeta({
   layout: "admin-auth",
 });
@@ -71,6 +73,7 @@ const username = ref("");
 const email = ref("");
 const password = ref("");
 const confirmPassword = ref("");
+const isLoading = ref(false);
 
 const isShow = ref(false);
 const isShowConf = ref(false);
@@ -81,6 +84,41 @@ const showPass = () => {
 
 const showConfPass = () => {
   isShowConf.value = !isShowConf.value;
+};
+
+const createAdminAccount = async () => {
+  isLoading.value = true;
+  try {
+    const response = await axios.post(
+      "http://localhost:3001/api/auth/admin/register",
+      {
+        username: username.value,
+        email: email.value,
+        password: password.value,
+        confirmPassword: confirmPassword.value,
+      }
+    );
+
+    console.log("response: ", response);
+
+    if (response && response.status === 200) {
+      router.push({ name: "admin-login" });
+    }
+
+    isLoading.value = false;
+    username.value = "";
+    email.value = "";
+    password.value = "";
+    confirmPassword.value = "";
+  } catch (error) {
+    console.log("error: ", error);
+    isLoading.value = false;
+
+    username.value = "";
+    email.value = "";
+    password.value = "";
+    confirmPassword.value = "";
+  }
 };
 </script>
 

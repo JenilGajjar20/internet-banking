@@ -37,27 +37,25 @@ export const useAuthStore = defineStore("auth", {
 
     // ADMIN AUTHENTICATION
     async authenticateAdmin({ email, password }: UserPayloadInterface) {
-      const { data, pending }: any = await axios.post(
+      const { data } = await axios.post(
         "http://localhost:3001/api/auth/admin/login",
         {
           email,
           password,
         }
       );
-      console.log("data: ", data.data);
-      this.loading = pending;
+      console.log("data: ", data);
+      localStorage.setItem("admin-data", JSON.stringify(data));
 
       if (data.data.role === "admin") {
-        const token = useCookie("admin-token");
-        token.value = data?.data?.token;
-        console.log("token: ", token.value);
-        this.authenticated = true;
+        const adminToken = data.token;
+        localStorage.setItem("admin-token", adminToken);
+        console.log("token: ", adminToken);
       }
     },
     logOutAdmin() {
-      const token = useCookie("admin-token");
+      localStorage.removeItem("admin-data");
       this.authenticated = false;
-      token.value = null;
     },
   },
 });
