@@ -4,9 +4,21 @@ const URL = "http://localhost:3001/api";
 
 export const getCustomers = async () => {
   try {
-    const response = await axios.get(`${URL}/customers`);
-    return response.data;
+    const adminToken = localStorage.getItem("admin-token");
+
+    if (!adminToken) {
+      return {
+        redirect: "admin/login",
+      };
+    }
+
+    const response = await axios.get(`${URL}/customers`, {
+      headers: {
+        "Authorization ": "Bearer " + adminToken,
+      },
+    });
+    return response;
   } catch (error) {
-    console.log("Error fetching customers: ", error);
+    return error;
   }
 };

@@ -67,10 +67,11 @@ const showPass = () => {
 const adminLogin = async () => {
   isLoading.value = true;
 
+  // Authenticate Admin
   await authenticateAdmin(user.value);
 
-  data.value = await JSON.parse(localStorage.getItem("admin-token"));
-  console.log("data: ", data.value);
+  // Getting admin data from local storage
+  data.value = await JSON.parse(localStorage.getItem("admin-data"));
 
   // Checking if authenticated value is 'true'
   if (authenticated.value) {
