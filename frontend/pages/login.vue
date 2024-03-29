@@ -96,45 +96,6 @@ const loginAccount = async () => {
     user.value = "";
   }
 };
-
-// const loginAccount = async () => {
-//   isLoading.value = true;
-//   notify.value = true;
-//   try {
-//     const response = await axios.post("http://localhost:3001/api/auth/login", {
-//       email: email.value,
-//       password: password.value,
-//     });
-//     console.log("response: ", response);
-//     if (response.status === 200) {
-//       notifyMsg.value = "Login successfully!!";
-//       notifyStatus.value = "success";
-//       router.push({ name: "index" });
-//     }
-//     isLoading.value = false;
-//     setTimeout(() => {
-//       notify.value = false;
-//     }, 3000);
-//     email.value = "";
-//     password.value = "";
-//   } catch (error) {
-//     console.log("error: ", error);
-//     if (error.response?.status === 500) {
-//       notifyMsg.value = "Fields cannot be empty!!";
-//       notifyStatus.value = "danger";
-//     }
-//     if (error.response?.status === 400) {
-//       notifyMsg.value = error.response?.data.message;
-//       notifyStatus.value = "danger";
-//     }
-//     isLoading.value = false;
-//     setTimeout(() => {
-//       notify.value = false;
-//     }, 3000);
-//     email.value = "";
-//     password.value = "";
-//   }
-// };
 </script>
 
 <style lang="scss">

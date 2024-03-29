@@ -50,17 +50,15 @@ const adminLogin = async (req, res) => {
     const adminToken = jwt.sign(
       { admin_id: adminEmail._id },
       process.env.JWT_SECRET_KEY,
-      { expiresIn: "24h" }
+      { expiresIn: "1h" }
     );
 
     const { password, ...others } = adminEmail._doc;
-    return res
-      .status(200)
-      .json({
-        token: adminToken,
-        data: others,
-        message: "Logged in successfully",
-      });
+    return res.status(200).json({
+      token: adminToken,
+      data: others,
+      message: "Logged in successfully",
+    });
   } catch (err) {
     return res
       .status(400)

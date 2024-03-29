@@ -51,6 +51,7 @@ export const useAuthStore = defineStore("auth", {
         const adminToken = data.token;
         localStorage.setItem("admin-token", adminToken);
         console.log("token: ", adminToken);
+        this.authenticated = true;
       }
     },
     logOutAdmin() {

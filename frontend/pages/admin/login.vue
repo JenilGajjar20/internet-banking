@@ -23,7 +23,7 @@
               <p>{{ !isShow ? "show" : "hide" }}</p>
             </div>
           </div>
-          <ButtonAuth label="Login" />
+          <ButtonAuth label="Login" :is-loading="isLoading" />
         </form>
         <div class="admin-login--form--bottom">
           <p>Don't have account?</p>
@@ -71,6 +71,18 @@ const adminLogin = async () => {
 
   data.value = await JSON.parse(localStorage.getItem("admin-token"));
   console.log("data: ", data.value);
+
+  // Checking if authenticated value is 'true'
+  if (authenticated.value) {
+    setTimeout(() => {
+      isLoading.value = false;
+      user.value = "";
+      router.push("/admin/dashboard");
+    }, 1000);
+  } else {
+    router.push({ name: "admin-login" });
+    user.value = "";
+  }
 };
 </script>
 
