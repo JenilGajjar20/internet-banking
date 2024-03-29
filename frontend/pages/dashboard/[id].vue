@@ -7,15 +7,15 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import { useAuthStore } from "~/store/auth";
+import checkTokenExpiry from "@/mixins/token";
 
 const customerData = ref({});
+const isToken = ref(false);
 
 definePageMeta({
   layout: "dashboard",
 });
 
-const { logOutCustomer } = useAuthStore();
 // const { authenticated } = storeToRefs(useAuthStore());
 const router = useRouter();
 
@@ -24,24 +24,21 @@ onMounted(async () => {
     customerData.value = await JSON.parse(
       localStorage.getItem("customer-data")
     );
-    // if (customerData.value === null) {
-    //   router.push({ name: "login" });
-    // }
+
+    // Check for the token value
+    if (!checkTokenExpiry.value) {
+      router.push({ name: "login" });
+    }
   } catch (e) {
     console.log("error: ", e);
   }
 });
-
-// const logOut = async () => {
-//   await logOutCustomer();
-//   router.push("/login");
-// };
 </script>
 
 <style lang="scss">
 .dashboard {
   &-section {
-    @apply py-5 h-screen relative;
+    @apply py-5 relative bg-grey-200 h-screen;
   }
 }
 </style>

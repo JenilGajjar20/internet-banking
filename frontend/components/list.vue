@@ -2,7 +2,7 @@
   <div class="list-section">
     <div class="list-section__content">
       <div class="list-section__content--header">
-        <NuxtLink :to="`/dashboard/${cId}`" class="icon">
+        <NuxtLink :to="`/dashboard/${cData?._id}`" class="icon">
           <Icon name="uiw:arrow-left" />
         </NuxtLink>
         <h4>{{ title }}</h4>
@@ -54,24 +54,29 @@
       <ShimmersList v-else-if="isLoading" />
       <Error
         v-else-if="!isLoading && items.length == 0"
-        label="No Transactions Found"
+        :label="errorMessage"
       />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const isDetail = ref(false);
 const t_id = ref(null);
 
-defineProps({
+const props = defineProps({
   title: { type: String, default: "" },
   items: { type: Array, default: [] },
-  cId: { type: [Number, String] },
+  cData: { type: Object, default: {} },
   isLoading: { type: Boolean, default: false },
+  errorMessage: { type: String },
 });
+
+// const filterItems = computed(() => {
+//   return props.items.filter((item) => item?._id == props.cData?._id);
+// });
 
 const openDetail = (id) => {
   t_id.value = id;

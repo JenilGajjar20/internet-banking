@@ -1,11 +1,13 @@
 <template>
   <div class="sidebar-section">
     <div class="sidebar-section__header">
-      <img
-        src="@/assets/img/app_logo.png"
-        alt=""
-        class="h-20 shadow-xl rounded-full"
-      />
+      <NuxtLink to="/">
+        <img
+          src="@/assets/img/app_logo.png"
+          alt=""
+          class="h-20 shadow-xl rounded-full"
+        />
+      </NuxtLink>
     </div>
     <div class="sidebar-section__body">
       <div v-for="item in sidebarItems" :key="item.id" class="item">
@@ -13,7 +15,7 @@
           @click="changeTab(item.id)"
           :class="activeId == item.id && isActive ? 'active' : 'hover-active'"
         >
-          <Icon :name="item.icon" class="text-xl" />
+          <Icon :name="item.icon" class="text-2xl" />
           <span class="text-xs">{{ item.label }}</span>
         </p>
       </div>
@@ -57,16 +59,15 @@ const sidebarItems = [
   },
   {
     id: 2,
-    label: "Loans",
-    icon: "tdesign:undertake-transaction",
-    link: "loans",
+    label: "Statistics",
+    icon: "gridicons:stats",
+    link: "statistics",
   },
   {
     id: 3,
-    label: "Statistics",
-    value: "statistics",
-    icon: "gridicons:stats",
-    link: "statistics",
+    label: "Wallet",
+    icon: "material-symbols:account-balance-wallet-outline",
+    link: "wallet",
   },
   {
     id: 4,
@@ -77,7 +78,7 @@ const sidebarItems = [
   {
     id: 5,
     label: "Settings",
-    icon: "uiw:setting",
+    icon: "uiw:setting-o",
     link: "settings",
   },
 ];
@@ -88,7 +89,7 @@ const sidebarItems = [
   &-section {
     @apply flex flex-col items-center gap-5;
     &__body {
-      @apply relative bg-primary-600 w-fit rounded-lg px-4 py-8 text-white space-y-8;
+      @apply relative bg-white w-fit rounded-lg px-4 py-8 text-primary-500 space-y-8;
       .item {
         p {
           @apply flex flex-col items-center gap-2 font-bold cursor-pointer;

@@ -11,7 +11,7 @@ export const createTransaction = async () => {
   }
 };
 
-const getTransactions = async () => {
+export const getTransactions = async () => {
   try {
     const token = localStorage.getItem("customer-token");
     if (!token) {
@@ -27,10 +27,26 @@ const getTransactions = async () => {
     });
     return response.data;
   } catch (error) {
-    console.log("Error: ", error);
-    // if (error.response && error.response.status === 401) {
-    // }
+    return error.response;
   }
 };
 
-export default getTransactions;
+export const getTransactionId = async (id) => {
+  try {
+    const token = localStorage.getItem("customer-token");
+    if (!token) {
+      return {
+        redirect: "login",
+      };
+    }
+
+    const response = await axios.get(`${URL}/${id}`, {
+      headers: {
+        "Authorization ": "Bearer " + token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    return error.response;
+  }
+};

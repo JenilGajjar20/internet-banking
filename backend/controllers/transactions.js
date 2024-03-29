@@ -48,7 +48,9 @@ const getAllTransactions = async (req, res) => {
   try {
     const transactions = await Transaction.find();
     if (!transactions || transactions.length === 0) {
-      return res.status(404).json({ message: "No transactions found" });
+      return res
+        .status(404)
+        .json({ message: "You haven't made any transaction yet!" });
     }
     return res.status(200).json({ data: transactions });
   } catch (error) {
@@ -60,7 +62,7 @@ const getAllTransactions = async (req, res) => {
 const getTransactionById = async (req, res) => {
   try {
     const transaction = await Transaction.findById(req.params.id);
-    if (!transaction) {
+    if (!transaction && transaction.id != req.params.id) {
       return res.status(404).json({ message: "Transaction not found" });
     }
 

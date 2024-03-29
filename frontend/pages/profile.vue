@@ -2,6 +2,10 @@
   <div>Profile</div>
 </template>
 
-<script setup></script>
+<script setup>
+definePageMeta({
+  layout: "dashboard",
+});
+</script>
 
 <style lang="scss"></style>

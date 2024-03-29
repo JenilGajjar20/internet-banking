@@ -9,7 +9,7 @@
         </div>
       </div>
     </div>
-    <p class="text-2xl pt-4 font-bold text-grey-500">{{ label }}</p>
+    <p class="text-2xl pt-4 font-bold text-grey-500 text-center">{{ label }}</p>
   </div>
 </template>
 
