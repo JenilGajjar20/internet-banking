@@ -81,7 +81,6 @@ const dropdownItems = [
 onMounted(async () => {
   try {
     customer.value = await JSON.parse(localStorage.getItem("customer-data"));
-    console.log("===>", checkTokenExpiry.value);
     isToken.value = checkTokenExpiry.value;
   } catch (e) {
     console.log(e);

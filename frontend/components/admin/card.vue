@@ -1,6 +1,6 @@
 <template>
   <div class="card-section">
-    <div class="card-section__content">Cards</div>
+    <slot />
   </div>
 </template>
 
@@ -12,6 +12,9 @@ defineProps({
 
 <style lang="scss">
 .card-section {
-  @apply my-8;
+  @apply mt-8;
+  &__content {
+    @apply bg-gradient-to-r from-info-600 to-info-400 text-white rounded-md p-6;
+  }
 }
 </style>

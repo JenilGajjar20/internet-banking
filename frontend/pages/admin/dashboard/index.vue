@@ -7,7 +7,38 @@
           <h4>{{ adminData?.data?.username }}</h4>
           <p>{{ adminData?.data?.email }}</p>
         </div>
-        <AdminCard :customers="customers" />
+        <div class="cards">
+          <AdminCard :customers="customers">
+            <template #default>
+              <div class="card-section__content">
+                <div class="font-bold flex items-center justify-between gap-5">
+                  <div>
+                    <p class="text-info-200 text-xs">No. of</p>
+                    <p class="text-xl">Customers</p>
+                  </div>
+                  <div class="text-4xl">
+                    <p>{{ customers?.data?.length }}</p>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </AdminCard>
+          <AdminCard :customers="customers">
+            <template #default>
+              <div class="card-section__content">
+                <div class="font-bold flex items-center justify-between gap-5">
+                  <div>
+                    <p class="text-info-200 text-xs">No. of</p>
+                    <p class="text-xl">Customers</p>
+                  </div>
+                  <div class="text-4xl">
+                    <p>{{ customers?.data?.length }}</p>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </AdminCard>
+        </div>
         <!-- <AdminList :customers="customers" /> -->
       </div>
     </div>
@@ -15,18 +46,25 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { getCustomers } from "@/api/customer/get-customers";
+import checkAdminTokenExpiry from "@/mixins/admin-token";
 
 definePageMeta({
   layout: "dashboard",
 });
 
+const router = useRouter();
 const adminData = ref("");
 const customers = ref([]);
 const isLoading = ref(false);
 
 onMounted(async () => {
+  // Check for the token value
+  if (!checkAdminTokenExpiry.value) {
+    router.push({ name: "admin-login" });
+  }
+
   adminData.value = await JSON.parse(localStorage.getItem("admin-data"));
 
   const response = await getCustomers();
@@ -35,6 +73,14 @@ onMounted(async () => {
     customers.value = response?.data;
     isLoading.value = false;
   }
+});
+
+const chartPercentage = computed(() => {
+  return (customers?.value.data?.length / 100).toFixed(1);
+});
+
+const chartWidth = computed(() => {
+  return chartPercentage + "%";
 });
 </script>
 
@@ -56,6 +102,9 @@ onMounted(async () => {
       p {
         @apply text-grey-500;
       }
+    }
+    .cards {
+      @apply flex w-full overflow-auto whitespace-nowrap space-x-4;
     }
   }
 }

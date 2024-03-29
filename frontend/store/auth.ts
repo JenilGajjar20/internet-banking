@@ -21,7 +21,6 @@ export const useAuthStore = defineStore("auth", {
           password,
         }
       );
-      // console.log("data: ", data);
       localStorage.setItem("customer-data", JSON.stringify(data));
 
       if (data.data.role === "customer") {
@@ -44,13 +43,11 @@ export const useAuthStore = defineStore("auth", {
           password,
         }
       );
-      console.log("data: ", data);
       localStorage.setItem("admin-data", JSON.stringify(data));
 
       if (data.data.role === "admin") {
         const adminToken = data.token;
         localStorage.setItem("admin-token", adminToken);
-        console.log("token: ", adminToken);
         this.authenticated = true;
       }
     },
