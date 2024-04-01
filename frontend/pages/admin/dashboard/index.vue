@@ -28,10 +28,10 @@
                 <div class="font-bold flex items-center justify-between gap-5">
                   <div>
                     <p class="text-info-200 text-xs">No. of</p>
-                    <p class="text-xl">Customers</p>
+                    <p class="text-xl">Transactions</p>
                   </div>
                   <div class="text-4xl">
-                    <p>{{ customers?.data?.length }}</p>
+                    <p>{{ transactions?.data?.length }}</p>
                   </div>
                 </div>
               </div>
@@ -47,6 +47,7 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import { getCustomers } from "@/api/customer/get-customers";
+import { getTransactions } from "@/api/transaction/custom";
 import checkAdminTokenExpiry from "@/mixins/admin-token";
 
 definePageMeta({
@@ -57,29 +58,57 @@ const router = useRouter();
 const adminData = ref("");
 const ad_token = ref(null);
 const customers = ref([]);
+const transactions = ref([]);
 const isLoading = ref(false);
 const itemId = ref(null);
 
 onMounted(async () => {
   adminData.value = await JSON.parse(localStorage.getItem("admin-data"));
-  ad_token.value = await JSON.parse(localStorage.getItem("admin-token"));
 
   // Check for the token value
-  if (!checkAdminTokenExpiry.value && ad_token.value == null) {
+  if (!checkAdminTokenExpiry.value) {
     await navigateTo({ path: "/admin/login" });
-  } else {
-    getAllCustomers();
   }
+
+  // getAllCustomers();
+  // getAllTransactions();
+
+  getAllData();
 });
 
-const getAllCustomers = async () => {
-  const response = await getCustomers();
+const getAllData = async () => {
+  const customerResponse = await getCustomers();
   isLoading.value = true;
-  if (response && response.status === 200) {
-    customers.value = response?.data;
+  if (customerResponse && customerResponse.status === 200) {
+    customers.value = customerResponse?.data;
+    isLoading.value = false;
+  }
+
+  const transactionResponse = await getTransactions();
+  isLoading.value = true;
+  if (transactionResponse && transactionResponse.status === 200) {
+    transactions.value = transactionResponse?.data;
     isLoading.value = false;
   }
 };
+
+// const getAllCustomers = async () => {
+//   const response = await getCustomers();
+//   isLoading.value = true;
+//   if (response && response.status === 200) {
+//     customers.value = response?.data;
+//     isLoading.value = false;
+//   }
+// };
+
+// const getAllTransactions = async () => {
+//   const response = await getTransactions();
+//   isLoading.value = true;
+//   if (response && response.status === 200) {
+//     transactions.value = response?.data;
+//     isLoading.value = false;
+//   }
+// };
 
 const handleTabChange = (data) => {
   itemId.value = data.activeId;

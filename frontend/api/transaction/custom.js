@@ -25,7 +25,7 @@ export const getTransactions = async () => {
         "Authorization ": "Bearer " + token,
       },
     });
-    return response.data;
+    return response;
   } catch (error) {
     return error.response;
   }
