@@ -15,7 +15,7 @@
           @click="changeTab(item.id)"
           :class="activeId == item.id && isActive ? 'active' : 'hover-active'"
         >
-          <Icon :name="item.icon" class="text-2xl" />
+          <Icon :name="item?.icon" class="text-2xl" />
           <span class="text-xs">{{ item.label }}</span>
         </p>
       </div>

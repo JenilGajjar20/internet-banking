@@ -1,12 +1,11 @@
 <template>
   <div class="admin-dashboard primary-fonts">
     <div class="admin-dashboard__content">
-      <div class="admin-dashboard__sidebar">Sidebar</div>
+      <div class="admin-dashboard__sidebar">
+        <AdminSidebar :items="items" @tab-changed="handleTabChange" />
+      </div>
       <div class="admin-dashboard__body">
-        <div class="admin-dashboard__body--header">
-          <h4>{{ adminData?.data?.username }}</h4>
-          <p>{{ adminData?.data?.email }}</p>
-        </div>
+        <AdminHeader :admin-data="adminData" :items="items" :item-id="itemId" />
         <div class="cards">
           <AdminCard :customers="customers">
             <template #default>
@@ -56,24 +55,35 @@ definePageMeta({
 
 const router = useRouter();
 const adminData = ref("");
+const ad_token = ref(null);
 const customers = ref([]);
 const isLoading = ref(false);
+const itemId = ref(null);
 
 onMounted(async () => {
-  // Check for the token value
-  if (!checkAdminTokenExpiry.value) {
-    router.push({ name: "admin-login" });
-  }
-
   adminData.value = await JSON.parse(localStorage.getItem("admin-data"));
+  ad_token.value = await JSON.parse(localStorage.getItem("admin-token"));
 
+  // Check for the token value
+  if (!checkAdminTokenExpiry.value && ad_token.value == null) {
+    await navigateTo({ path: "/admin/login" });
+  } else {
+    getAllCustomers();
+  }
+});
+
+const getAllCustomers = async () => {
   const response = await getCustomers();
   isLoading.value = true;
   if (response && response.status === 200) {
     customers.value = response?.data;
     isLoading.value = false;
   }
-});
+};
+
+const handleTabChange = (data) => {
+  itemId.value = data.activeId;
+};
 
 const chartPercentage = computed(() => {
   return (customers?.value.data?.length / 100).toFixed(1);
@@ -82,20 +92,48 @@ const chartPercentage = computed(() => {
 const chartWidth = computed(() => {
   return chartPercentage + "%";
 });
+
+const items = [
+  {
+    id: 1,
+    label: "Customers",
+    value: "customers",
+    icon: "flowbite:users-group-outline",
+  },
+  {
+    id: 2,
+    label: "Transactions",
+    value: "transactions",
+    icon: "tdesign:undertake-transaction",
+  },
+  {
+    id: 3,
+    label: "Settings",
+    value: "settings",
+    icon: "uiw:setting-o",
+  },
+  {
+    id: 4,
+    label: "Profile",
+    value: "profile",
+    icon: "uiw:user",
+  },
+];
 </script>
 
 <style lang="scss">
 .admin-dashboard {
-  @apply px-4 py-8 bg-grey-200 h-screen;
+  @apply bg-grey-200 p-4;
   &__content {
-    @apply lg:flex lg:items-center;
+    @apply lg:flex;
   }
   &__sidebar {
-    @apply hidden lg:block;
+    @apply w-1/5 hidden lg:block;
   }
   &__body {
+    @apply w-full;
     &--header {
-      @apply bg-white p-4 rounded-md shadow-xl font-bold border-2 border-primary-500;
+      @apply bg-white p-4 rounded-md shadow-xl font-bold;
       h4 {
         @apply text-xl text-grey-700;
       }

@@ -31,6 +31,7 @@ export const useAuthStore = defineStore("auth", {
     },
     logOutCustomer() {
       localStorage.removeItem("customer-data");
+      localStorage.removeItem("customer-token");
       this.authenticated = false;
     },
 
@@ -53,6 +54,7 @@ export const useAuthStore = defineStore("auth", {
     },
     logOutAdmin() {
       localStorage.removeItem("admin-data");
+      localStorage.removeItem("admin-token");
       this.authenticated = false;
     },
   },
