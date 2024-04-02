@@ -50,7 +50,7 @@ const customerLogin = async (req, res) => {
       { customer_id: customerEmail._id },
       process.env.JWT_SECRET_KEY,
       {
-        expiresIn: "1h",
+        expiresIn: "24h",
       }
     );
 
@@ -89,9 +89,64 @@ const getCustomerById = async (req, res) => {
   }
 };
 
+const updateCustomerById = async (req, res) => {
+  try {
+    const existingCustomer = await Customer.findOne({ email: req.body.email });
+
+    // Check if the customer already exists
+    if (existingCustomer && existingCustomer._id.toString() !== req.params.id) {
+      return res.status(400).json({
+        message: "You are not allowed to update this customers details",
+      });
+    }
+
+    const updatedCustomer = await Customer.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+
+    if (!updatedCustomer) {
+      return res.status(404).json({ message: "Customer not found." });
+    }
+
+    return res.status(200).json({
+      data: updatedCustomer,
+      message: "Customer updated successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({ message: "Oops! Something went wrong." });
+  }
+};
+
+const deleteCustomerById = async (req, res) => {
+  try {
+    const existingCustomer = await Customer.findOne({ email: req.body.email });
+
+    // Check if the customer already exists
+    if (existingCustomer && existingCustomer._id.toString() !== req.params.id) {
+      return res
+        .status(400)
+        .json({ message: "You are not allowed to delete this customer" });
+    }
+
+    const deleteCustomer = await Customer.findByIdAndDelete(req.params.id);
+
+    if (!deleteCustomer) {
+      return res.status(404).json({ message: "Customer not found." });
+    }
+
+    return res.status(200).json({ message: "Customer deleted successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "Oops! Something went wrong." });
+  }
+};
+
 module.exports = {
   customerRegister,
   customerLogin,
   getCustomers,
   getCustomerById,
+  updateCustomerById,
+  deleteCustomerById,
 };

@@ -20,6 +20,9 @@ app.use("/api/customers", customerRoute);
 const adminAuthRoute = require("./routes/admin-auth");
 app.use("/api/auth/admin", adminAuthRoute);
 
+const adminRoute = require("./routes/admin");
+app.use("/api/admins", adminRoute);
+
 // Transaction Route
 const transactionRoute = require("./routes/transactions");
 app.use("/api/transactions", transactionRoute);

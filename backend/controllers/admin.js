@@ -50,7 +50,7 @@ const adminLogin = async (req, res) => {
     const adminToken = jwt.sign(
       { admin_id: adminEmail._id },
       process.env.JWT_SECRET_KEY,
-      { expiresIn: "1h" }
+      { expiresIn: "24h" }
     );
 
     const { password, ...others } = adminEmail._doc;
@@ -66,7 +66,20 @@ const adminLogin = async (req, res) => {
   }
 };
 
+const getAdminById = async (req, res) => {
+  try {
+    const admin = await Admin.findById(req.params.id);
+    return res.status(200).json({ data: admin });
+  } catch (err) {
+    console.log("error", err);
+    return res
+      .status(500)
+      .json({ error: err, message: "Oops! Something went wrong" });
+  }
+};
+
 module.exports = {
   adminRegister,
   adminLogin,
+  getAdminById,
 };

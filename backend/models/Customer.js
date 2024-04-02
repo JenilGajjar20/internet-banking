@@ -15,6 +15,12 @@ const customerSchema = new mongoose.Schema(
     password: { type: String, required: true },
     confirmPassword: { type: String },
     role: { type: String, default: "customer" },
+    transactions: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Transaction",
+      },
+    ],
   },
   {
     timestamps: true,
