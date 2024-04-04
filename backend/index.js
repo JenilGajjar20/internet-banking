@@ -27,6 +27,10 @@ app.use("/api/admins", adminRoute);
 const transactionRoute = require("./routes/transactions");
 app.use("/api/transactions", transactionRoute);
 
+// Wallet Routes
+const walletRoute = require("./routes/wallet");
+app.use("/api/wallet", walletRoute);
+
 app.listen(port, () => {
   console.log(`Server started at http://localhost:${port}`);
 });
