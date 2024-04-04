@@ -6,6 +6,6 @@ const authMiddleware = require("../middlewares/auth");
 
 router.get("/:id", authMiddleware, getAdminById);
 
-// router.put("/:id", authMiddleware, updateAdminById);
+router.put("/:id", authMiddleware, updateAdminById);
 
 module.exports = router;

@@ -78,39 +78,45 @@ const getAdminById = async (req, res) => {
   }
 };
 
-// const updateAdminById = async (req, res) => {
-//   try {
-//     const existingAdmin = await Admin.findOne({ email: req.body.email });
+const updateAdminById = async (req, res) => {
+  try {
+    const existingAdmin = await Admin.findOne({ email: req.body.email });
 
-//     // Check if the admin already exists
-//     if (existingAdmin && existingAdmin._id.toString() !== req.params.id) {
-//       return res
-//         .status(400)
-//         .json({ message: "You are not allowed to update this admin details" });
-//     }
+    // Check if the admin already exists
+    if (existingAdmin && existingAdmin._id.toString() !== req.params.id) {
+      return res
+        .status(400)
+        .json({ message: "You are not allowed to update this admin details" });
+    }
 
-//     const updatedAdmin = await Admin.findByIdAndUpdate(
-//       req.params.id,
-//       req.body,
-//       { new: true }
-//     );
+    // Check if the password is updated
+    if (req.body.password) {
+      const hashedPass = await bcrypt.hash(req.body.password, 10);
+      req.body.password = hashedPass;
+    }
 
-//     if (!updatedAdmin) {
-//       return res.status(404).json({ message: "Admin not found" });
-//     }
+    const updatedAdmin = await Admin.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
 
-//     return res.status(200).json({
-//       data: updatedAdmin,
-//       message: `${req.body.username}, your details are updated successfully`,
-//     });
-//   } catch (err) {
-//     return res.status(500).json({ message: "Oops! Something went wrong" });
-//   }
-// };
+    if (!updatedAdmin) {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+
+    return res.status(200).json({
+      data: updatedAdmin,
+      message: `${updatedAdmin.username}, your details are updated successfully`,
+    });
+  } catch (err) {
+    return res.status(500).json({ message: "Oops! Something went wrong" });
+  }
+};
 
 module.exports = {
   adminRegister,
   adminLogin,
   getAdminById,
-  // updateAdminById,
+  updateAdminById,
 };

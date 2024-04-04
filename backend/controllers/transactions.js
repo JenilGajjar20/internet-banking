@@ -59,12 +59,11 @@ const createTransaction = async (req, res) => {
         return res.status(404).json({ message: "Transaction not found" });
       }
 
-      if (transaction.amount > "100") {
+      if (transaction.amount >= "100" || transaction.amount <= "500000") {
         transaction.status = "completed";
       } else {
         transaction.status = "failed";
       }
-
       await transaction.save();
     }, 5000);
 

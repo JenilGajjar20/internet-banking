@@ -100,6 +100,12 @@ const updateCustomerById = async (req, res) => {
       });
     }
 
+    // Check if the password is updated
+    if (req.body.password) {
+      const hashedPass = await bcrypt.hash(req.body.password, 10);
+      req.body.password = hashedPass;
+    }
+
     const updatedCustomer = await Customer.findByIdAndUpdate(
       req.params.id,
       req.body,
@@ -112,7 +118,7 @@ const updateCustomerById = async (req, res) => {
 
     return res.status(200).json({
       data: updatedCustomer,
-      message: "Customer updated successfully",
+      message: `${updatedCustomer.username}, your details are updated successfully`,
     });
   } catch (error) {
     return res.status(500).json({ message: "Oops! Something went wrong." });
