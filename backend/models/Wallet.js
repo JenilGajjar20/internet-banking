@@ -2,28 +2,17 @@ const mongoose = require("mongoose");
 
 const walletSchema = new mongoose.Schema(
   {
-    customer: {
-      id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Customer",
-        required: true,
-      },
-      email: {
-        type: String,
-        required: true,
-      },
-    },
-    balance: {
-      type: Number,
-      default: 0,
+    c_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Customer",
       required: true,
     },
-    transactions: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Transaction",
-      },
-    ],
+    c_email: {
+      type: String,
+      required: true,
+    },
+    balance: { type: Number, default: 0 },
+    currency: { type: String, default: "INR" },
   },
   { timestamps: true }
 );

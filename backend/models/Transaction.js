@@ -6,7 +6,7 @@ const transactionSchema = new mongoose.Schema({
     required: true,
   },
   amount: { type: Number, required: true },
-  currency: { type: String, required: true },
+  currency: { type: String, default: "INR" },
   date: { type: Date, default: Date.now },
   sender: {
     s_id: {

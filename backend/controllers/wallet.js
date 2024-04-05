@@ -1,54 +1,87 @@
-const Customer = require("../models/Customer");
+// const Customer = require("../models/Customer");
 const Wallet = require("../models/Wallet");
 
 const createWallet = async (req, res) => {
   try {
-    const customerId = req.body.customer.id;
-    // const customerEmail = req.body.customer.email;
+    const newWallet = await Wallet({
+      c_id: req.body.id,
+      c_email: req.body.email,
+    });
 
-    const customer = await Customer.findById(customerId);
-    // console.log("customer: ", customer);
-    // Check if the customer exists
-    if (!customer) {
-      return res.status(404).json({ message: "Customer not found" });
+    // Check if the wallet already exists
+    if (newWallet.c_id.toString() === req.body.id) {
+      return res
+        .status(400)
+        .json({ message: "You have already created a Wallet." });
     }
 
-    // const existingWallet = await Wallet.findOne({
-    //   customer: { id: req.body.customer.id },
-    // });
-    console.log("c_id: ", req.body.customer.id);
-    // Check if the customer has already created a wallet
-    // if (existingWallet) {
-    //   return res.status(400).json({ message: "Customer already has a wallet" });
-    // }
+    // Save the new wallet
+    const wallet = newWallet.save();
 
-    // Creating a new wallet
-    // const newWallet = await Wallet({
-    //   customer: { id: customerId, email: customerEmail },
-    //   balance: 0,
-    // });
-    // console.log("newWallet: ", newWallet);
-
-    // const saveWallet = await newWallet.save();
-
-    // return res
-    //   .status(201)
-    //   .json({ data: saveWallet, message: "Wallet created successfully" });
+    return res
+      .status(201)
+      .json({ data: wallet, message: "Wallet created successfully" });
   } catch (err) {
-    console.log("error", err);
-    // return res
-    //   .status(500)
-    //   .json({ error: err, message: "Oops! Something went wrong" });
+    return res
+      .status(500)
+      .json({ error: err, message: "Oops! Something went wrong" });
   }
 };
 
-// const getWalletData = async (req, res) => {
-//   try {
-//     // const walletData = await Wallet.findById({});
-//     console.log("Wallet data: ", req);
-//   } catch (err) {
-//     console.log("Error: ", err);
-//   }
-// };
+const getWalletByCustomerId = async (req, res) => {
+  try {
+    const walletData = await Wallet.findOne({
+      c_id: req.user.customer_id,
+    });
 
-module.exports = { createWallet };
+    // Check if the wallet is not found
+    if (walletData.c_id.toString() !== req.user.customer_id) {
+      return res.status(404).json({ message: "Wallet not found" });
+    }
+
+    return res.status(200).json({ data: walletData });
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ error: err, message: "Oops! Something went wrong" });
+  }
+};
+
+const updateWalletBalance = async (req, res) => {
+  try {
+    const wallet = await Wallet.findOne({ c_id: req.body.c_id });
+
+    // Check if wallet is not found
+    if (!wallet) {
+      return res.status(404).json({ message: "Wallet not found" });
+    }
+
+    // Check if the balance is less than 100 and more than 40,000
+    if (req.body.balance <= 100 || req.body.balance >= 40000) {
+      return res
+        .status(401)
+        .json({ message: "You can add amount between 100 and 40000" });
+    }
+
+    // Check if the email address is valid
+    if (wallet.c_email !== req.body.c_email) {
+      return res.status(401).json({ message: "Invalid email address" });
+    }
+
+    // Update the wallet balance
+    wallet.balance += req.body.balance;
+
+    // Save the updated wallet
+    await wallet.save();
+
+    return res
+      .status(200)
+      .json({ data: wallet, message: "Wallet balance updated" });
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ error: err, message: "Oops! Something went wrong" });
+  }
+};
+
+module.exports = { createWallet, getWalletByCustomerId, updateWalletBalance };

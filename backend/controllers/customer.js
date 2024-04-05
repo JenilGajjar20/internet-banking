@@ -18,6 +18,7 @@ const customerRegister = async (req, res) => {
       password: hashedPass,
     });
 
+    // Save the new customer
     const customer = await newCustomer.save();
     return res
       .status(200)
