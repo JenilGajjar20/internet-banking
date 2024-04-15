@@ -44,14 +44,13 @@ onMounted(async () => {
 
 const allTransactions = async () => {
   const response = await getTransactions();
-  // console.log("response: ", response);
   isLoading.value = true;
   if (response) {
-    // isLoading.value = true;
     setTimeout(() => {
       isLoading.value = false;
-      transactions.value = response?.data;
     }, 2000);
+    transactions.value = response;
+    message.value = response?.data;
   }
   // if (response.response && response?.response?.status == 200) {
   //   isLoading.value = false;

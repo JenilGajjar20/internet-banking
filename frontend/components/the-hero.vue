@@ -15,7 +15,7 @@
           "
           icon
           :label="isToken && customerData ? 'View Dashboard' : 'Login'"
-          class="bg-primary-700 text-white text-sm shadow-xl lg:text-lg hover:bg-primary-600"
+          class="text-sm shadow-xl lg:text-lg hover:bg-primary-600"
         />
       </div>
       <div class="box-2">

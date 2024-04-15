@@ -8,7 +8,7 @@
         <h4>{{ title }}</h4>
       </div>
       <div
-        v-if="items.length != 0 && !isLoading"
+        v-if="items.status === 200 && !isLoading"
         class="list-section__content--body"
       >
         <div v-for="item in items" :key="item._id" class="item-content">
@@ -52,10 +52,14 @@
         </div>
       </div>
       <ShimmersList v-else-if="isLoading" />
-      <Error
-        v-else-if="!isLoading && items.length == 0"
-        :label="errorMessage"
-      />
+      <div v-else-if="items.status === 404" class="flex flex-col items-center">
+        <Error :label="errorMessage" />
+        <ButtonSolidLink
+          to="/dashboard/transactions/new"
+          label="Create Transaction"
+          icon
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -68,7 +72,7 @@ const t_id = ref(null);
 
 const props = defineProps({
   title: { type: String, default: "" },
-  items: { type: Array, default: [] },
+  items: { type: Object, default: {} },
   cData: { type: Object, default: {} },
   isLoading: { type: Boolean, default: false },
   errorMessage: { type: String },

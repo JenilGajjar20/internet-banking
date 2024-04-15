@@ -89,8 +89,8 @@ const loginAccount = async () => {
       isLoading.value = false;
       notify.value = false;
       user.value = "";
-      router.push(`/dashboard/${data?.value?.data?._id}`);
     }, 1000);
+    router.push(`/dashboard/${data?.value?.data?._id}`);
   } else {
     router.push("/login");
     user.value = "";

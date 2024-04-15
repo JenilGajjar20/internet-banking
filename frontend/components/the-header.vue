@@ -36,7 +36,7 @@
         v-else
         to="/login"
         label="Log In"
-        class="text-white bg-primary-700 hidden lg:block"
+        class="hidden lg:block"
       />
     </div>
   </div>

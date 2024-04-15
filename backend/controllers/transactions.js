@@ -81,9 +81,7 @@ const getAllTransactions = async (req, res) => {
       "sender.s_id": req.user.customer_id,
     });
     if (!transactions || transactions.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "You haven't made any transaction yet!" });
+      return res.status(404).json("You haven't made any transaction yet!");
     }
     return res.status(200).json({ data: transactions });
   } catch (err) {
