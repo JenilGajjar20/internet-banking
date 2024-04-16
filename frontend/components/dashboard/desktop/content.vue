@@ -15,7 +15,8 @@
         <Icon name="uiw:logout" @click="logOut" />
       </div>
     </div>
-    <!-- <div class="dashboard-content__body">Body</div> -->
+    <div v-if="itemId == null">Dashboard</div>
+    <DashboardDesktopTransactions v-else-if="itemId == 1" />
   </div>
 </template>
 
@@ -57,6 +58,12 @@ const logOut = async () => {
       @apply flex items-center justify-between bg-white rounded-xl text-sm mb-4 py-4 px-6 font-bold text-grey-500;
       &--right {
         @apply flex text-red-500 p-2 rounded-full border-2 border-red-500 cursor-pointer hover:text-white hover:bg-red-500;
+      }
+    }
+    &__body {
+      @apply bg-white rounded-xl;
+      &--content {
+        @apply p-4;
       }
     }
   }

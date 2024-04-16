@@ -48,10 +48,10 @@ const bottomItems = [
   },
   {
     id: 2,
-    label: "Statistics",
-    value: "statistics",
-    icon: "gridicons:stats",
-    link: "statistics",
+    label: "Wallet",
+    value: "wallet",
+    icon: "material-symbols:account-balance-wallet-outline",
+    link: "wallet",
   },
   {
     id: 3,

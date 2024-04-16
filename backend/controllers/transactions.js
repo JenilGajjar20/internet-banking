@@ -85,9 +85,7 @@ const getAllTransactions = async (req, res) => {
     }
     return res.status(200).json({ data: transactions });
   } catch (err) {
-    return res
-      .status(500)
-      .json({ error: err, message: "Error fetching transactions" });
+    return res.status(500).json("Error fetching transactions");
   }
 };
 

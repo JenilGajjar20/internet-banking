@@ -45,8 +45,4 @@ definePageMeta({
 });
 </script>
 
-<style lang="scss">
-.new-transaction {
-  // @apply
-}
-</style>
+<style lang="scss"></style>

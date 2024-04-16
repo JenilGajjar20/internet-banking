@@ -1,5 +1,5 @@
 <template>
-  <div class="container primary-fonts h-screen">
+  <div class="primary-fonts h-screen relative">
     <List
       title="Transactions"
       :c-data="customerData?.data"
