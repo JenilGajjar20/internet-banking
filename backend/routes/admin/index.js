@@ -1,8 +1,8 @@
 const router = require("express").Router();
 
-const { getAdminById, updateAdminById } = require("../controllers/admin");
+const { getAdminById, updateAdminById } = require("../../controllers/admin");
 
-const authMiddleware = require("../middlewares/auth");
+const authMiddleware = require("../../middlewares/auth");
 
 router.get("/:id", authMiddleware, getAdminById);
 

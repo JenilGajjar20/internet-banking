@@ -22,9 +22,7 @@ const createWallet = async (req, res) => {
       .status(201)
       .json({ data: wallet, message: "Wallet created successfully" });
   } catch (err) {
-    return res
-      .status(500)
-      .json({ error: err, message: "Oops! Something went wrong" });
+    return res.status(500).json({ message: "Oops! Something went wrong" });
   }
 };
 
@@ -41,9 +39,7 @@ const getWalletByCustomerId = async (req, res) => {
 
     return res.status(200).json({ data: walletData });
   } catch (err) {
-    return res
-      .status(500)
-      .json({ error: err, message: "Oops! Something went wrong" });
+    return res.status(500).json({ message: "Oops! Something went wrong" });
   }
 };
 
@@ -78,9 +74,7 @@ const updateWalletBalance = async (req, res) => {
       .status(200)
       .json({ data: wallet, message: "Wallet balance updated" });
   } catch (err) {
-    return res
-      .status(500)
-      .json({ error: err, message: "Oops! Something went wrong" });
+    return res.status(500).json({ message: "Oops! Something went wrong" });
   }
 };
 

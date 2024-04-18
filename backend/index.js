@@ -11,16 +11,15 @@ const db = require("./db/index");
 db;
 
 // Customer Routes
-const customerAuthRoute = require("./routes/customer-auth");
-const customerRoute = require("./routes/customer");
+const customerAuthRoute = require("./routes/customer/auth");
+const customerRoute = require("./routes/customer/index");
 app.use("/api/auth", customerAuthRoute);
 app.use("/api/customers", customerRoute);
 
 // Admin Routes
-const adminAuthRoute = require("./routes/admin-auth");
+const adminAuthRoute = require("./routes/admin/auth");
+const adminRoute = require("./routes/admin/index");
 app.use("/api/auth/admin", adminAuthRoute);
-
-const adminRoute = require("./routes/admin");
 app.use("/api/admins", adminRoute);
 
 // Transaction Route

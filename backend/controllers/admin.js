@@ -28,9 +28,7 @@ const adminRegister = async (req, res) => {
         .status(400)
         .json({ message: "username or email already exist!!" });
     }
-    return res
-      .status(500)
-      .json({ error: err, message: "Oops! Something went wrong" });
+    return res.status(500).json({ message: "Oops! Something went wrong" });
   }
 };
 
@@ -60,9 +58,7 @@ const adminLogin = async (req, res) => {
       message: "Logged in successfully",
     });
   } catch (err) {
-    return res
-      .status(400)
-      .json({ error: err, message: "Oops! Something went wrong" });
+    return res.status(400).json({ message: "Oops! Something went wrong" });
   }
 };
 
@@ -72,9 +68,7 @@ const getAdminById = async (req, res) => {
     return res.status(200).json({ data: admin });
   } catch (err) {
     console.log("error", err);
-    return res
-      .status(500)
-      .json({ error: err, message: "Oops! Something went wrong" });
+    return res.status(500).json({ message: "Oops! Something went wrong" });
   }
 };
 

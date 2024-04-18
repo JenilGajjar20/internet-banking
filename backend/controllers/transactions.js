@@ -69,9 +69,7 @@ const createTransaction = async (req, res) => {
 
     return res.status(201).json({ data: saveTransaction });
   } catch (err) {
-    return res
-      .status(500)
-      .json({ error: err, message: "Something went wrong!!" });
+    return res.status(500).json({ message: "Something went wrong!!" });
   }
 };
 
@@ -98,9 +96,7 @@ const getTransactionById = async (req, res) => {
 
     return res.status(200).json({ data: transaction });
   } catch (err) {
-    return res
-      .status(500)
-      .json({ error: err, message: "Error fetching the transaction" });
+    return res.status(500).json({ message: "Error fetching the transaction" });
   }
 };
 

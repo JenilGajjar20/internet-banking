@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { adminRegister, adminLogin } = require("../controllers/admin");
+const { adminRegister, adminLogin } = require("../../controllers/admin");
 
 router.post("/register", adminRegister);
 

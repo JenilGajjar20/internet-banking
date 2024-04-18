@@ -5,9 +5,9 @@ const {
   getCustomerById,
   updateCustomerById,
   deleteCustomerById,
-} = require("../controllers/customer");
+} = require("../../controllers/customer");
 
-const authMiddleware = require("../middlewares/auth");
+const authMiddleware = require("../../middlewares/auth");
 
 router.get("/", authMiddleware, getCustomers);
 

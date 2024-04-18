@@ -29,9 +29,7 @@ const customerRegister = async (req, res) => {
         .status(400)
         .json({ message: "username or email already exist!!" });
     }
-    return res
-      .status(500)
-      .json({ error: err, message: "Oops! Something went wrong" });
+    return res.status(500).json({ message: "Oops! Something went wrong" });
   }
 };
 
@@ -62,9 +60,7 @@ const customerLogin = async (req, res) => {
       .json({ token: token, data: others, message: "Logged in successfully" });
   } catch (err) {
     console.log("error", err);
-    return res
-      .status(400)
-      .json({ error: err, message: "Oops! Something went wrong." });
+    return res.status(400).json({ message: "Oops! Something went wrong." });
   }
 };
 
@@ -73,9 +69,7 @@ const getCustomers = async (req, res) => {
     const customers = await Customer.find();
     return res.status(200).json({ data: customers });
   } catch (err) {
-    return res
-      .status(500)
-      .json({ error: err, message: "Oops! Something went wrong." });
+    return res.status(500).json({ message: "Oops! Something went wrong." });
   }
 };
 
@@ -84,9 +78,7 @@ const getCustomerById = async (req, res) => {
     const customer = await Customer.findById(req.params.id);
     return res.status(200).json({ data: customer });
   } catch (err) {
-    return res
-      .status(500)
-      .json({ error: err, message: "Oops! Something went wrong." });
+    return res.status(500).json({ message: "Oops! Something went wrong." });
   }
 };
 
