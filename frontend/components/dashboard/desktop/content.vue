@@ -2,7 +2,7 @@
   <div class="dashboard-content">
     <div class="dashboard-content__header">
       <div class="dashboard-content__header--left">
-        dashboard
+        <span>Dashboard </span>
         <span v-if="itemId == 1">/ transactions</span>
         <span v-else-if="itemId == 2">/ statistics</span>
         <span v-else-if="itemId == 3">/ wallet</span>
@@ -36,14 +36,6 @@ defineProps({
   itemId: { type: Number, default: null },
 });
 
-// const changeText = computed(() => {
-//   if (itemId.value == 1) {
-//     breadcrumbText.value = "transactions";
-//   }
-
-//   return breadcrumbText.value;
-// });
-
 const logOut = async () => {
   await logOutCustomer();
   router.push("/login");
@@ -55,7 +47,7 @@ const logOut = async () => {
   &-content {
     @apply w-full h-full ml-4;
     &__header {
-      @apply flex items-center justify-between bg-white rounded-xl text-sm mb-4 py-4 px-6 font-bold text-grey-500;
+      @apply flex items-center justify-between bg-white rounded-xl text-sm mt-2 mb-7 py-4 px-6 font-bold text-grey-500;
       &--right {
         @apply flex text-red-500 p-2 rounded-full border-2 border-red-500 cursor-pointer hover:text-white hover:bg-red-500;
       }

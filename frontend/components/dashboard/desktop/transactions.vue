@@ -1,11 +1,5 @@
 <template>
   <div class="dashboard-content__body">
-    <!-- <List
-      title="Transactions"
-      :items="transactions?.data?.data"
-      :is-loading="isLoading"
-      :error-message="message"
-    /> -->
     <div class="">
       <div
         class="p-4 flex items-center justify-between border-b border-gray-500"
@@ -23,7 +17,7 @@
       </div>
 
       <div
-        v-if="transactions?.data?.data?.length > 0"
+        v-if="transactions?.data?.data?.length > 0 && !isLoading"
         class="dashboard-content__body--content"
       >
         <table class="w-full">
@@ -53,7 +47,9 @@
         </table>
       </div>
 
-      <div v-else-if="transactions?.data?.data.length == 0" class="">
+      <ShimmersList v-else-if="isLoading" class="px-4 pb-2" />
+
+      <div v-else-if="transactions?.data?.data?.length == 0" class="">
         <Error :label="message" />
       </div>
     </div>

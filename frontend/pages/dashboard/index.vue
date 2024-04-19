@@ -1,14 +1,42 @@
 <template>
-  <div>DashBoard</div>
+  <div class="dashboard-section primary-fonts">
+    <DashboardMobile class="lg:hidden" :customer-data="customerData" />
+    <DashboardDesktop class="hidden lg:flex" :customer-data="customerData" />
+  </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import checkTokenExpiry from "@/mixins/token";
+// import { Bar } from 'vue-chartjs';
+// import {
+//   Chart as ChartJS,
+//   Title,
+//   Tooltip,
+//   Legend,
+//   BarElement,
+//   CategoryScale,
+//   LinearScale,
+// } from 'chart.js';
 
-const router = useRouter();
+// ChartJS.register(
+//   Title,
+//   Tooltip,
+//   Legend,
+//   BarElement,
+//   CategoryScale,
+//   LinearScale
+// );
+
 const customerData = ref({});
 const isToken = ref(false);
+
+definePageMeta({
+  layout: "dashboard",
+});
+
+// const { authenticated } = storeToRefs(useAuthStore());
+const router = useRouter();
 
 onMounted(async () => {
   try {
@@ -26,4 +54,10 @@ onMounted(async () => {
 });
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.dashboard {
+  &-section {
+    @apply py-5 relative bg-grey-200 h-screen;
+  }
+}
+</style>
