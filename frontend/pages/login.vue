@@ -90,7 +90,7 @@ const loginAccount = async () => {
       notify.value = false;
       user.value = "";
     }, 1000);
-    router.push(`/dashboard/${data?.value?.data?._id}`);
+    router.push({ name: "dashboard" });
   } else {
     router.push("/login");
     user.value = "";

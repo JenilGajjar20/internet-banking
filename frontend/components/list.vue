@@ -2,7 +2,7 @@
   <div class="list-section container">
     <div class="list-section__content">
       <div class="list-section__content--header">
-        <NuxtLink :to="`/dashboard/${cData?._id}`" class="icon arrow">
+        <NuxtLink to="/dashboard" class="icon arrow">
           <Icon name="uiw:arrow-left" />
         </NuxtLink>
         <h4>{{ title }}</h4>
@@ -99,7 +99,7 @@
         v-else-if="items.status === 404 || items.status === 500"
         class="flex flex-col items-center lg:pb-10"
       >
-        <Error :label="errorMessage" />
+        <Error :label="errorMessage?.message" />
         <!-- <ButtonSolidLink
           class="lg:hidden"
           to="/dashboard/transactions/new"

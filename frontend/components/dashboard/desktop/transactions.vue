@@ -15,7 +15,6 @@
           </p>
         </button>
       </div>
-
       <div
         v-if="transactions?.data?.data?.length > 0 && !isLoading"
         class="dashboard-content__body--content"
@@ -49,8 +48,11 @@
 
       <ShimmersList v-else-if="isLoading" class="px-4 pb-2" />
 
-      <div v-else-if="transactions?.data?.data?.length == 0" class="">
-        <Error :label="message" />
+      <div
+        v-else-if="transactions?.status === 404 || transactions?.status === 500"
+        class=""
+      >
+        <Error :label="transactions?.data?.message" />
       </div>
     </div>
   </div>

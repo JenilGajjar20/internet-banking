@@ -17,6 +17,7 @@
     </div>
     <div v-if="itemId == null">Dashboard</div>
     <DashboardDesktopTransactions v-else-if="itemId == 1" />
+    <DashboardDesktopWallet v-else-if="itemId == 3" />
   </div>
 </template>
 

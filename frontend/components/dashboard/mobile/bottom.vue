@@ -3,7 +3,11 @@
     <div class="bottom-bar__items" v-for="item in items" :key="item.id">
       <Icon :name="item.icon" />
       <NuxtLink
-        :to="isToken ? 'login' : `${item.link}/${customerData?.data?._id}`"
+        :to="
+          isToken
+            ? 'login'
+            : `/dashboard/${item.link}/${customerData?.data?._id}`
+        "
       >
         {{ item.label }}
       </NuxtLink>
