@@ -21,3 +21,25 @@ export const getWalletByCustomerId = async (id) => {
     return error.response;
   }
 };
+
+export const updateWalletBalance = async (id) => {
+  try {
+    const token = localStorage.getItem("customer-token");
+
+    if (!token) {
+      return {
+        redirect: "login",
+      };
+    }
+
+    const response = await axios.put(`${URL}/${id}`, {
+      headers: {
+        "Authorization ": "Bearer " + token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error.response;
+  }
+};

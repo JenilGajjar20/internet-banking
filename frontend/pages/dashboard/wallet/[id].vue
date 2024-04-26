@@ -1,5 +1,5 @@
 <template>
-  <div class="container wallet-section">
+  <div class="container primary-fonts wallet-section">
     <div class="wallet-section__content">
       <div class="wallet-section__content--header">
         <NuxtLink to="/dashboard" class="icon arrow">
@@ -7,10 +7,18 @@
         </NuxtLink>
       </div>
       <div class="wallet-section__content--body">
+        <pre>
+          {{ walletData }}
+        </pre>
         <div class="wallet-card">
           <div class="wallet-card__content">
-            <p>Total Balance</p>
-            <p>{{ walletData?.data?.balance }}</p>
+            <h6>Total Balance</h6>
+            <p>
+              <Icon name="material-symbols:currency-rupee-rounded" />
+              <span>
+                {{ walletData?.data?.balance }}
+              </span>
+            </p>
           </div>
         </div>
       </div>
@@ -61,7 +69,7 @@ const getWalletData = async () => {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .wallet {
   &-section {
     &__content {
@@ -78,6 +86,18 @@ const getWalletData = async () => {
   }
   &-card {
     @apply border-2 border-black rounded-md p-3;
+    &__content {
+      @apply flex items-center justify-between;
+      h6 {
+        @apply text-lg;
+      }
+      p {
+        @apply flex items-center text-2xl font-bold;
+        span {
+          @apply ml-1;
+        }
+      }
+    }
   }
 }
 </style>
